@@ -1,0 +1,2 @@
+$now = localtime;
+print $now;
