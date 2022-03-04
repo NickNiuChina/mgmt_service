@@ -1,7 +1,7 @@
 $(function () {
   $("#tbcertfiles").DataTable({
     "dom": 'Blfrtip',
-    // "responsive": true, "lengthChange": false, "autoWidth": false,
+    "responsive": true, "lengthChange": false, "autoWidth": false,
     // "responsive": true, "lengthChange": true, "autoWidth": true,
     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     "lengthMenu": [5, 50, 100, 1000],

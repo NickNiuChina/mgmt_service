@@ -31,18 +31,18 @@
                 <table id="tbcertfiles" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr>
-                    <th>Created on date</th>
                     <th>FileName</th>
-                    <th>Action</th>
+                    <th>CreatedDate</th>
                     <th>ExpireInAmonth</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
      
                   <tfoot>
-                    <th>Created on date</th>
                     <th>FileName</th>
-                    <th>Action</th>
+                    <th>CreatedDate</th>
                     <th>ExpireInAmonth</th>
+                    <th>Action</th>
                   </tfoot>
                 </table>
               </div>
