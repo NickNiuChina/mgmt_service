@@ -1,5 +1,4 @@
 % layout 'default';
-% title 'Welcome';
 <h2><%= $msg %></h2>
 <p>
   This page was generated from the template "templates/example/welcome.html.ep"

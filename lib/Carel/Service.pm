@@ -17,6 +17,8 @@ sub startup ($self) {
   # $r->get('/')->to('Example#welcome');
   $r->get('/')->to('Base#index');
   $r->get('/bar')->to('Foo#bar');
+  $r->get('/certed')->to('Dashboard#certedClientsList');
+  $r->get('/reqs')->to('Dashboard#reqFilesList');
 }
 
 1;
