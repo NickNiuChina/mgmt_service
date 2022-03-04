@@ -5,7 +5,9 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 sub index ($self) {
 
   # Render template "base/base.html.ep" with message
-  $self->render(template => 'base/base',msg => 'To be filled');
+  # $self->render(template => 'base/base',msg => 'To be filled');
+  $self = shift;
+  return $self->redirect_to('/service');
 }
 
 1;

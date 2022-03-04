@@ -103,7 +103,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/certed" class="nav-link">
+                <a href="/service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT files</p>
                 </a>

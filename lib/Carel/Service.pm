@@ -16,9 +16,14 @@ sub startup ($self) {
   # Normal route to controller
   # $r->get('/')->to('Example#welcome');
   $r->get('/')->to('Base#index');
-  $r->get('/bar')->to('Foo#bar');
+  $r->get('/service')->to('Login#index');
   $r->get('/service/reqs')->to('Dashboard#reqFilesList');
-  $r->get('/certed')->to('Dashboard#certedClientsList');
+  $r->get('/service/certed')->to('Dashboard#certedClientsList');
+  $r->post('/service/certed/list')->to('Dashboard#certedClientsListJson');
+
+  ###### Other ########
+  $r->get('/bar')->to('Foo#bar');
+
 
 }
 
