@@ -9,7 +9,7 @@ sub certedClientsList ($self) {
 }
 
 sub reqFilesList ($self) {
-  # Render template "base/base.html.ep" with message
+  #
   $self->render(template => 'contents/reqFileList',msg => 'To be filled');
 }
 
