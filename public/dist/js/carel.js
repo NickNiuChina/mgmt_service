@@ -27,7 +27,8 @@ $(function () {
 
 });
 
-
+// datatable 行内添加按钮
+// https://blog.csdn.net/qq_40127253/article/details/81478881
 
 // $(function () {
 //   $("#tbcertfiles").DataTable({

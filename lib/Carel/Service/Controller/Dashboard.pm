@@ -36,6 +36,9 @@ sub certedClientsListJson ($self) {
   for my $file (@client_req_files) {
     my $filename = basename($file);
     next unless (length($filename) == 40);
+    if ( $searchValue) {
+      next unless $filename =~ /$searchValue/;
+    }
     unshift @filearray, $filename;
   }
 
@@ -49,8 +52,8 @@ sub certedClientsListJson ($self) {
   my $createDate;
 
   for $file (@filesOrdered) {
-      $createDate = strftime("%Y/%m/%d:%M:%S", localtime((stat "$dir/$file")[10] ));
-      unshift @data, [$file, $createDate, 'NA', 'NA'] ;
+      $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
+      unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
   }
 
   my $output = {

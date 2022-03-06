@@ -12,6 +12,7 @@ use Data::Printer;
   for my $file (@client_req_files) {
     my $filename = basename($file);
     next unless (length($filename) == 40);
+    next unless $filename =~ /zzhaVPcU-/ && 0;
     unshift @filearray, $filename;
   }
 
