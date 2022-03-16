@@ -1,4 +1,4 @@
-package Carel::Service;
+package Mgmt::Service;
 use Mojo::Base 'Mojolicious', -signatures;
 
 # This method will run once at server start
@@ -17,9 +17,9 @@ sub startup ($self) {
   # $r->get('/')->to('Example#welcome');
   $r->get('/')->to('Base#index');
   $r->get('/service')->to('Login#index');
-  $r->get('/service/reqs')->to('Dashboard#reqFilesList');
-  $r->get('/service/certed')->to('Dashboard#certedClientsList');
-  $r->post('/service/certed/list')->to('Dashboard#certedClientsListJson');
+  $r->get('/service/reqs')->to('Views#reqFilesList');
+  $r->get('/service/certed')->to('Views#certedClientsList');
+  $r->post('/service/certed/list')->to('Views#certedClientsListJson');
 
   ###### Other ########
   $r->get('/bar')->to('Foo#bar');

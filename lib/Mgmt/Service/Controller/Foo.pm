@@ -1,5 +1,5 @@
 # Controller
-package Carel::Service::Controller::Foo;
+package Mgmt::Service::Controller::Foo;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # Action

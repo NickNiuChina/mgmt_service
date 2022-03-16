@@ -1,4 +1,4 @@
-package Carel::Service::Controller::Login;
+package Mgmt::Service::Controller::Login;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template
