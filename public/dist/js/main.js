@@ -24,7 +24,34 @@ $(function () {
     },
 
   });
+});
 
+$(function () {
+  $("#tbreqfiles").DataTable({
+    "dom": 'Blfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    // "responsive": true, "lengthChange": true, "autoWidth": true,
+    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+    "lengthMenu": [5, 50, 100, 1000],
+    //
+    "processing": true,
+    "serverSide": true,
+    // "searching": true,
+    // "destroy": true,
+    "paging": false,
+    // "pagingType": 'input',
+    "ordering": false,
+    // "iDisplayLength": 10,
+    // "bLengthChange": true,
+    // "lengthMenu": [20, 50, 100, 1000],
+    "ajax": {
+      'url': "/service/reqs/list",
+      'type': 'POST',
+      'data': {},
+      'dataType': 'json',
+    },
+
+  });
 });
 
 // datatable 行内添加按钮

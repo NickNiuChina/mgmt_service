@@ -41,7 +41,7 @@
   <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
  
   <!-- Costmized js -->
-  <script src="/dist/js/carel.js"></script>
+  <script src="/dist/js/main.js"></script>
   <!-- <script src="dist/js/input.js"></script> -->
 </head>
 
@@ -96,6 +96,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                <a href="/service/issue" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Issue certification</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/service/reqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
@@ -106,6 +113,12 @@
                 <a href="/service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT files</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/service/clientstatus" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>OVPN CLIENT status</p>
                 </a>
               </li>
             </ul>

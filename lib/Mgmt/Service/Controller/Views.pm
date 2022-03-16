@@ -2,13 +2,19 @@ package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template
-sub certedClientsList ($self) {
+sub reqFilesList ($self) {
+     # Render template "dir/name.html.ep" with message
+    $self->render(template => 'contents/reqFileList',msg => 'To be filled');
 
+}
+
+sub certedClientsList ($self) {
     # Render template "dir/name.html.ep" with message
     $self->render(template => 'contents/certFileList',msg => 'To be filled');
 }
 
-sub reqFilesList ($self) {
+
+sub reqsClientsListJson ($self) {
   use File::Basename;
   use POSIX qw(strftime);
   # get the param first
@@ -27,7 +33,7 @@ sub reqFilesList ($self) {
   my $file;
 
   # my $dir = $ENV{MGMTSERVICEDIR};
-  my $dir = '/root/tmp/tmpcerted';
+  my $dir = '/root/tmp/tmpreq';
   
 
   my @client_req_files = glob "$dir/*.req"; 
@@ -64,7 +70,6 @@ sub reqFilesList ($self) {
   $self->render(json => $output);
 
 }
-
 
 sub certedClientsListJson ($self) {
   use File::Basename;
