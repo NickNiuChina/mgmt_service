@@ -121,13 +121,32 @@
                   <p>OVPN CLIENT status</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/service/clientstatus" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Connectios</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="/service/clientstatus" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Recent log</p>
+                </a>
+              </li>
+              </li>
+                <li class="nav-item">
+                <a href="/service/clientstatus" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>CN history</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-server"></i>
               <p>
-                OVPN server 2
+                Future server 2
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
