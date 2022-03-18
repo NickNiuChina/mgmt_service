@@ -1,3 +1,9 @@
 ---
 secrets:
   - 28424dd8069fe62f1f91a8d7d5e9ec858d8913e3
+
+hypnotoad: 
+  listen: 
+    - 'http://127.0.0.1:3000'
+  workers: 
+    - 10
