@@ -33,7 +33,7 @@ sub reqsClientsListJson ($self) {
   my $file;
 
   # my $dir = $ENV{MGMTSERVICEDIR};
-  my $dir = '/root/tmp/tmpreq';
+  my $dir = '/opt/reqs-done';
   
 
   my @client_req_files = glob "$dir/*.req"; 
@@ -90,7 +90,7 @@ sub certedClientsListJson ($self) {
   my $file;
 
   # my $dir = $ENV{MGMTSERVICEDIR};
-  my $dir = '/root/tmp/tmpcerted';
+  my $dir = '/opt/validated';
   
 
   my @client_req_files = glob "$dir/*.p7mb64"; 

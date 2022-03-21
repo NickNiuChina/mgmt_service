@@ -8,4 +8,4 @@ use lib curfile->dirname->sibling('lib')->to_string;
 use Mojolicious::Commands;
 
 # Start command line interface for application
-Mojolicious::Commands->start_app('Mgmt::Service', 'daemon', '-l', 'http://10.0.2.15:3000');
+Mojolicious::Commands->start_app('Mgmt::Service', 'daemon', '-l', 'http://127.0.0.1:3000');
