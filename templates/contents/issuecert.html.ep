@@ -1,0 +1,37 @@
+  % layout 'default';
+
+<div class="content-wrapper">
+<h1 class="m-0">Update Req file </h1>
+ <div class="col-md-6 mx-auto">
+    <form method="post" action="/service/issue/upload">
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" 
+                       class="custom-file-input" 
+                       name="upload_cert" 
+                       id="upload_cert" 
+                       accept="text/plain"
+                       type='file'
+                       required 
+                />
+                <label class="custom-file-label" for="upload_cert">Select Req file</label>
+            </div>
+          <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Upload" />
+          </div>
+        </div>
+    </form>
+</div>
+
+% if ( $error ) {
+    <div class="alert alert-danger">
+        <p> <%= $error %> </p>
+    </div>
+% }
+
+% if ( $message ) {
+    <div class="alert alert-success col-md-6 mx-auto">
+        <p> <%= $message %> </p>
+    </div>
+% }
+</div>
