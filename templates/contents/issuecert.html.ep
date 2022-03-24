@@ -3,18 +3,18 @@
 <div class="content-wrapper">
 <h1 class="m-0">Update Req file </h1>
  <div class="col-md-6 mx-auto">
-    <form method="post" action="/service/issue/upload">
+    <form method="post" action="/service/issue/upload" enctype ="multipart/form-data">
         <div class="input-group">
             <div class="custom-file">
                 <input type="file" 
                        class="custom-file-input" 
-                       name="upload_cert" 
-                       id="upload_cert" 
+                       name="upload_req" 
+                       id="upload_req" 
                        accept="text/plain"
                        type='file'
                        required 
                 />
-                <label class="custom-file-label" for="upload_cert">Select Req file</label>
+                <label class="custom-file-label" for="upload_req">Select Req file</label>
             </div>
           <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" value="Upload" />
@@ -24,7 +24,7 @@
 </div>
 
 % if ( $error ) {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger col-md-6 mx-auto">
         <p> <%= $error %> </p>
     </div>
 % }

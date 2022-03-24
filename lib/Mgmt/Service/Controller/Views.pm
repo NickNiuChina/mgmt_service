@@ -4,14 +4,42 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 # This action will render a template
 sub issuecert ($self) {
      # Render template "dir/name.html.ep" with message
-    
-    $self->render(template => 'contents/issuecert', error => '', message => '');
+        # $self->render(template => 'contents/issuecert', error => '', message => '');
+        $self->stash( error   => $self->flash('error') );
+        $self->stash( message => $self->flash('message') );
+        $self->render(template => 'contents/issuecert');
+}
 
+sub reqUpload ($c) {
+ 
+    my ( $req, $req_file );
+    if ( !$c->param('upload_req') ) {
+        $c->flash( error => 'Image is required.' );
+        $c->redirect_to('/service/issue');
+    }
+
+    # Check for Valid Extension in case of choosing other files
+    
+    if ( $c->param('upload_req')->filename !~ /\.req$/ ) {
+        $c->flash( error => 'Invalid req file extension. Please check!' );
+        return $c->redirect_to('/service/issue');
+    }
+
+    # Upload the req file
+    $req = $c->req->upload('upload_req');
+
+    $req_file = '/opt/reqs/' . $c->param('upload_req')->filename;
+    
+    # debug
+    # print "HHHHHHHHHHHHHHHHHHHHHHHHHH: " . $c->param('upload_req')->filename . "\n";
+    $req->move_to($req_file);
+    
+    $c->flash( message => 'Image Uploaded sucessfully.' );
+    $c->redirect_to('/service/issue');
 }
 
 sub reqFilesList ($self) {
     $self->render(template => 'contents/reqFileList',msg => 'To be filled');
-
 }
 
 sub certedClientsList ($self) {

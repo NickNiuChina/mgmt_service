@@ -19,9 +19,13 @@ sub startup ($self) {
 
   $r->get('/')->to('Base#index');
   $r->get('/service')->to('Login#index');
+  
   $r->get('/service/issue')->to('Views#issuecert');
+  $r->post('/service/issue/upload')->to('Views#reqUpload');
+
   $r->get('/service/reqs')->to('Views#reqFilesList');
   $r->post('/service/reqs/list')->to('Views#reqsClientsListJson');
+  
   $r->get('/service/certed')->to('Views#certedClientsList');
   $r->post('/service/certed/list')->to('Views#certedClientsListJson');
   
