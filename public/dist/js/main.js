@@ -58,6 +58,8 @@ $(function () {
 // https://blog.csdn.net/qq_40127253/article/details/81478881
 // https://stackoverflow.com/questions/18134913/jquery-datatabletabletool-custom-buttons-calling-events
 
+// https://www.cnblogs.com/h2zZhou/p/7093077.html
+
 // $(function () {
 //   $("#tbcertfiles").DataTable({
 //     "dom": 'Blfrtip',
