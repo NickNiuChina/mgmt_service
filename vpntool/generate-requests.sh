@@ -320,6 +320,22 @@ cp -fv $WORKDIR/pki/private/*.key $BACKUPDIR/pki/private/
 cp -fv $WORKDIR/pki/issued/*.crt $BACKUPDIR/pki/issued/
 cp -fv $WORKDIR/pki/certs_by_serial/*.pem $BACKUPDIR/pki/certs_by_serial/
 
+for FILE in $WORKDIR/pki/reqs/*.req; do
+    ossutil64 cp $FILE oss://carelvpn/easyrsa/pki/reqs/ -f
+done
+
+for FILE in $WORKDIR/pki/private/*.key; do
+    ossutil64 cp -f $FILE oss://carelvpn/easyrsa/pki/private/ -f
+done
+
+for FILE in $WORKDIR/pki/issued/*.crt; do
+    ossutil64 cp -f $FILE oss://carelvpn/easyrsa/pki/issued/ -f
+done
+
+for FILE in $WORKDIR/pki/certs_by_serial/*.pem; do
+    ossutil64 cp -f $FILE oss://carelvpn/easyrsa/pki/certs_by_serial/ -f
+done
+
 # Update OSS store
 echo "Updating OSS store"
 cd $WORKDIR

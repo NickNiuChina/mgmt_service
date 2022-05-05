@@ -14,7 +14,7 @@ sub reqUpload ($c) {
  
     my ( $req, $req_file );
     if ( !$c->param('upload_req') ) {
-        $c->flash( error => 'Image is required.' );
+        $c->flash( error => 'REQ file is required.' );
         $c->redirect_to('/service/issue');
     }
 
@@ -37,9 +37,14 @@ sub reqUpload ($c) {
     # debug
     # print "HHHHHHHHHHHHHHHHHHHHHHHHHH: " . $c->param('upload_req')->filename . "\n";
     $req->move_to($req_file);
-    
-    $c->flash( message => 'Req file Uploaded sucessfully.' );
-    $c->redirect_to('/service/issue');
+    my $result = `bash /opt/mgmt_service/vpntool/generate-requests.sh`; # SELFDEFINEDSUCCESS
+    if ( $result =~ /SELFDEFINEDSUCCESS/m ) {
+        $c->flash( message => 'Req file Uploaded sucessfully.' );
+        $c->redirect_to('/service/issue');
+    } else {
+        $c->flash( error => 'Something wrong during generating cert file.' );
+	$c->redirect_to('/service/issue');
+    }
 }
 
 sub reqFilesList ($self) {
