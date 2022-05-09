@@ -10,3 +10,4 @@ use Mojolicious::Commands;
 # Start command line interface for application
 
 Mojolicious::Commands->start_app('Mgmt::Service', 'daemon', '-m', 'production', '-l', 'http://127.0.0.1:3000');
+#Mojolicious::Commands->start_app('Mgmt::Service');

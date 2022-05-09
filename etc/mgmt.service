@@ -1,0 +1,14 @@
+[Unit]
+Description=Carel Mgmt Mojo application
+After=network-online.target
+
+[Service]
+Type=forking
+User=root
+PIDFile=/run/mgmt-hypnotoad.pid
+ExecStart=/usr/local/bin/hypnotoad /opt/mgmt_service/script/mgmt_service
+ExecReload=/usr/local/bin/hypnotoad /opt/mgmt_service/script/mgmt_service
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
