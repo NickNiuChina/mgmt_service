@@ -98,7 +98,8 @@ sub reqsClientsListJson ($self) {
 
   for $file (@filesOrdered) {
       $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
-      unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+      # unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+      unshift @data, [$file, $createDate, 'NA'] ;
   }
 
   my $output = {
@@ -155,7 +156,7 @@ sub certedClientsListJson ($self) {
 
   for $file (@filesOrdered) {
       $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
-      unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+      unshift @data, [$file, $createDate, 'NA'] ;
   }
 
   my $output = {

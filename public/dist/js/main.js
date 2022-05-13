@@ -22,7 +22,17 @@ $(function () {
       'data': {},
       'dataType': 'json',
     },
-
+    "columnDefs" : [ {
+      // 定义操作列
+      "targets" : 3,//操作按钮目标列
+      "data" : null,
+      "render" : function(data, type, row) {
+      var id = '"' + row.id + '"';
+      var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
+      html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ data[0] + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
+      return html;
+      }
+    }],
   });
 });
 
@@ -50,34 +60,20 @@ $(function () {
       'data': {},
       'dataType': 'json',
     },
+    "columnDefs" : [ {
+      // 定义操作列
+      "targets" : 3,//操作按钮目标列
+      "data" : null,
+      "render" : function(data, type,row) {
+      var id = '"' + row.id + '"';
+      var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
+      html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Download</a>"
+      return html;
+      }
+    }],
 
   });
 });
 
 // datatable 行内添加按钮
-// https://blog.csdn.net/qq_40127253/article/details/81478881
-// https://stackoverflow.com/questions/18134913/jquery-datatabletabletool-custom-buttons-calling-events
-
-// https://www.cnblogs.com/h2zZhou/p/7093077.html
-
-// $(function () {
-//   $("#tbcertfiles").DataTable({
-//     "dom": 'Blfrtip',
-//     // "responsive": true, "lengthChange": false, "autoWidth": false,
-//     // "responsive": true, "lengthChange": true, "autoWidth": true,
-//     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-//     // "lengthMenu": [5, 50, 100, 1000],
-//   }).buttons().container().appendTo('#tbcertfiles_wrapper .col-md-6:eq(0)');
-
-// });
-
-
-// $('#example2').DataTable({
-//   "paging": true,
-//   "lengthChange": false,
-//   "searching": false,
-//   "ordering": true,
-//   "info": true,
-//   "autoWidth": false,
-//   "responsive": true,
-// });
+// https://datatables.net/reference/option/columnDefs
