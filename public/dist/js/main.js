@@ -1,4 +1,5 @@
 $(function () {
+
   $("#tbcertfiles").DataTable({
     "dom": 'Blfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -22,9 +23,10 @@ $(function () {
       'data': {},
       'dataType': 'json',
     },
+    // datatable inline-button
+    // https://datatables.net/reference/option/columnDefs
     "columnDefs" : [ {
-      // 定义操作列
-      "targets" : 3,//操作按钮目标列
+      "targets" : 3,
       "data" : null,
       "render" : function(data, type, row) {
       var id = '"' + row.id + '"';
@@ -34,16 +36,13 @@ $(function () {
       }
     }],
   });
-});
 
-$(function () {
   $("#tbreqfiles").DataTable({
     "dom": 'Blfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
     // "responsive": true, "lengthChange": true, "autoWidth": true,
     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     "lengthMenu": [5, 50, 100, 1000],
-    //
     "processing": true,
     "serverSide": true,
     // "searching": true,
@@ -61,8 +60,7 @@ $(function () {
       'dataType': 'json',
     },
     "columnDefs" : [ {
-      // 定义操作列
-      "targets" : 3,//操作按钮目标列
+      "targets" : 3,
       "data" : null,
       "render" : function(data, type,row) {
       var id = '"' + row.id + '"';
@@ -71,9 +69,6 @@ $(function () {
       return html;
       }
     }],
-
   });
-});
 
-// datatable 行内添加按钮
-// https://datatables.net/reference/option/columnDefs
+});
