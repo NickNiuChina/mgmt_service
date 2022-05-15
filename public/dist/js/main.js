@@ -39,7 +39,7 @@ $(document).ready(function () {
       "data": null,
       "render": function (data, type, row) {
         var id = '"' + row.id + '"';
-        var html = "<a href='javascript:void(0);'  class='deleteReq btn btn-danger btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
+        var html = "<a href='javascript:void(0);'  class='reqDelete btn btn-danger btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
         // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Download</a>"
         html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Download</a>"
         return html;
@@ -90,6 +90,16 @@ $(document).ready(function () {
     alert("FFFFFFFFFFFFFFFFFuck");
   });
 
+    // delete req files
+    $('#tbreqfiles tbody').on('click', '.reqDelete', function () {
+      var reqFileName = $(this).parent().parent().children(".dtr-control").text();
+      // console.log(certFileName);
+      $.post("/service/reqs/delete", { 'filename': reqFileName }, function (result) {
+        console.log(result)
+        $('#tbreqfiles').DataTable().ajax.reload();
+      });
+    });
+  
   // delete cert files
   $('#tbcertfiles tbody').on('click', '.certDelete', function () {
     var certFileName = $(this).parent().parent().children(".dtr-control").text();
@@ -98,7 +108,6 @@ $(document).ready(function () {
       console.log(result)
       $('#tbcertfiles').DataTable().ajax.reload();
     });
-
   });
 
 });

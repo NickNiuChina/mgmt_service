@@ -167,18 +167,17 @@ sub certedClientsListJson ($self) {
   };
   $self->render(json => $output);
 }
- 
-sub certedClientsDelete ($c) {
- 
+
+sub reqClientsDelete ($c) {
     my $filename;
     my $result;
     # my $dir = $ENV{MGMTSERVICEDIR};
-    my $dir = '/opt/validated';
+    my $dir = '/opt/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
         print (" I saw file name $filename\n");
         $result = {'result' => 'true'};
-        my $file = $dir . '/' . $filename;
+        my $file = $dir . $filename;
         unlink $file;
         print ($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
         $c->render(json => $result);
@@ -187,8 +186,28 @@ sub certedClientsDelete ($c) {
       $result = {'result' => 'false'};
       $c->render(json => $result);
     }
-    
-	# $c->redirect_to('/service/certed');
-
+  # $c->redirect_to('/service/certed');
 }
+
+sub certedClientsDelete ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/validated/';
+    $filename = $c->param('filename');
+    if ( $filename ) {
+        print (" I saw file name $filename\n");
+        $result = {'result' => 'true'};
+        my $file = $dir . $filename;
+        unlink $file;
+        print ($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        $c->render(json => $result);
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+  # $c->redirect_to('/service/certed');
+}
+
 1;

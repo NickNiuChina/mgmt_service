@@ -25,6 +25,7 @@ sub startup ($self) {
 
   $r->get('/service/reqs')->to('Views#reqFilesList');
   $r->post('/service/reqs/list')->to('Views#reqsClientsListJson');
+  $r->post('/service/reqs/delete')->to('Views#reqClientsDelete');
   
   $r->get('/service/certed')->to('Views#certedClientsList');
   $r->post('/service/certed/list')->to('Views#certedClientsListJson');
