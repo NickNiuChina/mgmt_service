@@ -28,6 +28,7 @@ sub startup ($self) {
   
   $r->get('/service/certed')->to('Views#certedClientsList');
   $r->post('/service/certed/list')->to('Views#certedClientsListJson');
+  $r->post('/service/certed/delete')->to('Views#certedClientsDelete');
   
   
   ###### Other Urls ########
