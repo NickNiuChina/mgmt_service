@@ -1,5 +1,17 @@
 $(function () {
 
+  // update the fname in the input 
+  $(".custom-file > input").on("change", function () {
+    var filePath=$(this).val();
+    if(filePath.length > 0){
+        var arr=filePath.split('\\');
+        var fileName=arr[arr.length-1];
+        $('.custom-file-label').text(fileName);
+    } else {
+      $('.custom-file-label').text("Please select Req file to upload");
+    }
+  })
+
   $("#tbcertfiles").DataTable({
     "dom": 'Blfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -25,14 +37,14 @@ $(function () {
     },
     // datatable inline-button
     // https://datatables.net/reference/option/columnDefs
-    "columnDefs" : [ {
-      "targets" : 3,
-      "data" : null,
-      "render" : function(data, type, row) {
-      var id = '"' + row.id + '"';
-      var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
-      html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ data[0] + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
-      return html;
+    "columnDefs": [{
+      "targets": 3,
+      "data": null,
+      "render": function (data, type, row) {
+        var id = '"' + row.id + '"';
+        var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
+        html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + data[0] + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
+        return html;
       }
     }],
   });
@@ -59,14 +71,14 @@ $(function () {
       'data': {},
       'dataType': 'json',
     },
-    "columnDefs" : [ {
-      "targets" : 3,
-      "data" : null,
-      "render" : function(data, type,row) {
-      var id = '"' + row.id + '"';
-      var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
-      html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Download</a>"
-      return html;
+    "columnDefs": [{
+      "targets": 3,
+      "data": null,
+      "render": function (data, type, row) {
+        var id = '"' + row.id + '"';
+        var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> Delete</a>"
+        html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Download</a>"
+        return html;
       }
     }],
   });

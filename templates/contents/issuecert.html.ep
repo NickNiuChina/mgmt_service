@@ -11,10 +11,9 @@
                        name="upload_req" 
                        id="upload_req" 
                        accept="text/plain"
-                       type='file'
                        required 
                 />
-                <label class="custom-file-label" for="upload_req">Select Req file</label>
+                <label class="custom-file-label" for="upload_req">Please select Req file to upload</label>
             </div>
           <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" value="Upload" />
