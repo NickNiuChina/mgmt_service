@@ -210,4 +210,22 @@ sub certedClientsDelete ($c) {
   # $c->redirect_to('/service/certed');
 }
 
+# reqs/client files download
+
+sub reqClientsDownload ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/validated/';
+    $filename = $c->param('filename');
+    $c->res->headers->content_disposition('attachment; filename=a7E_O9F0-99fc-11ec-97a4-c400ad1a1ce3.p7mb64;');
+    $c->reply->file("/opt/validated/a7E_O9F0-99fc-11ec-97a4-c400ad1a1ce3.p7mb64");
+}
+
+sub certedClientsDownload ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/validated/';
+}
 1;

@@ -26,10 +26,12 @@ sub startup ($self) {
   $r->get('/service/reqs')->to('Views#reqFilesList');
   $r->post('/service/reqs/list')->to('Views#reqsClientsListJson');
   $r->post('/service/reqs/delete')->to('Views#reqClientsDelete');
+  $r->post('/service/reqs/download')->to('Views#reqClientsDownload');
   
   $r->get('/service/certed')->to('Views#certedClientsList');
   $r->post('/service/certed/list')->to('Views#certedClientsListJson');
   $r->post('/service/certed/delete')->to('Views#certedClientsDelete');
+  $r->post('/service/certed/download')->to('Views#certedClientsDownload');
   
   
   ###### Other Urls ########
