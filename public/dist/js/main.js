@@ -199,7 +199,7 @@ $(document).ready(function () {
       },
       success: function (data) {
         //Convert the Byte Data to BLOB object.
-        var blob = new Blob([data], { type: "application/octetstream" });
+        var blob = new Blob([data], { type: "application/octet-stream" });
 
         //Check the Browser type and download the File.
         var isIE = false || !!document.documentMode;
