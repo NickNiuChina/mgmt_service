@@ -101,11 +101,11 @@ $(document).ready(function () {
       $(this).on('click', '.btn-danger', { 'filename': reqFileName }, function (e) {
         // alert("Deleted!!");
         $.post("/service/reqs/delete", { 'filename': reqFileName }, function (result) {
-              // console.log(result)
-              $('#tbreqfiles').DataTable().ajax.reload(); // reload table data
-            });
-        $('#reqDelModal').modal('hide'); // hide modal
+          // console.log(result)
+          $('#tbreqfiles').DataTable().ajax.reload(); // reload table data
         });
+        $('#reqDelModal').modal('hide'); // hide modal
+      });
     })
 
   // delete cert files
@@ -124,21 +124,99 @@ $(document).ready(function () {
       $(this).on('click', '.btn-danger', { 'filename': certFileName }, function (e) {
         // alert("Deleted!!");
         $.post("/service/certed/delete", { 'filename': certFileName }, function (result) {
-              // console.log(result)
-              $('#tbcertfiles').DataTable().ajax.reload();
-            });
-        $('#certDelModal').modal('hide'); // hide modal
+          // console.log(result)
+          $('#tbcertfiles').DataTable().ajax.reload();
         });
+        $('#certDelModal').modal('hide'); // hide modal
+      });
     })
 
   // req files download
   $('#tbreqfiles tbody').on('click', '.reqDownload', function () {
-    alert("req");
+    var reqFileName = $(this).parent().parent().children(".dtr-control").text();
+    //Set the File URL.
+    var url = "/service/reqs/dl/" + reqFileName;
+    console.log(url);
+    $.ajax({
+      url: url,
+      cache: false,
+      xhr: function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 2) {
+            if (xhr.status == 200) {
+              xhr.responseType = "blob";
+            } else {
+              xhr.responseType = "text";
+            }
+          }
+        };
+        return xhr;
+      },
+      success: function (data) {
+        //Convert the Byte Data to BLOB object.
+        var blob = new Blob([data], { type: "application/octetstream" });
+
+        //Check the Browser type and download the File.
+        var isIE = false || !!document.documentMode;
+        if (isIE) {
+          window.navigator.msSaveBlob(blob, reqFileName);
+        } else {
+          var url = window.URL || window.webkitURL;
+          link = url.createObjectURL(blob);
+          var a = $("<a />");
+          a.attr("download", reqFileName);
+          a.attr("href", link);
+          $("body").append(a);
+          a[0].click();
+          $("body").remove(a);
+        }
+      }
+    });
   });
 
   // cert files download
   $('#tbcertfiles tbody').on('click', '.certDownload', function () {
-    alert("cert");
+    var certFileName = $(this).parent().parent().children(".dtr-control").text();
+    //Set the File URL.
+    var url = "/service/reqs/dl/" + certFileName;
+    console.log(url);
+    $.ajax({
+      url: url,
+      cache: false,
+      xhr: function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 2) {
+            if (xhr.status == 200) {
+              xhr.responseType = "blob";
+            } else {
+              xhr.responseType = "text";
+            }
+          }
+        };
+        return xhr;
+      },
+      success: function (data) {
+        //Convert the Byte Data to BLOB object.
+        var blob = new Blob([data], { type: "application/octetstream" });
+
+        //Check the Browser type and download the File.
+        var isIE = false || !!document.documentMode;
+        if (isIE) {
+          window.navigator.msSaveBlob(blob, certFileName);
+        } else {
+          var url = window.URL || window.webkitURL;
+          link = url.createObjectURL(blob);
+          var a = $("<a />");
+          a.attr("download", certFileName);
+          a.attr("href", link);
+          $("body").append(a);
+          a[0].click();
+          $("body").remove(a);
+        }
+      }
+    });
   });
 
 });

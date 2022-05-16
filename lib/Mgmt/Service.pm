@@ -26,12 +26,15 @@ sub startup ($self) {
   $r->get('/service/reqs')->to('Views#reqFilesList');
   $r->post('/service/reqs/list')->to('Views#reqsClientsListJson');
   $r->post('/service/reqs/delete')->to('Views#reqClientsDelete');
-  $r->post('/service/reqs/download')->to('Views#reqClientsDownload');
+  # They can be especially useful for manually matching file names with extensions, rather than using format detection.
+  # /music/song.mp3 -> /music/#filename -> {filename => 'song.mp3'}
+  $r->get('/service/reqs/dl/#filename')->to('Views#reqClientsDownload');
   
   $r->get('/service/certed')->to('Views#certedClientsList');
   $r->post('/service/certed/list')->to('Views#certedClientsListJson');
   $r->post('/service/certed/delete')->to('Views#certedClientsDelete');
   $r->post('/service/certed/download')->to('Views#certedClientsDownload');
+  $r->get('/service/certed/dl/#filename')->to('Views#certedClientsDownload');
   
   
   ###### Other Urls ########
