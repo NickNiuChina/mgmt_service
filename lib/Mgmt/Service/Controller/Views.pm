@@ -232,8 +232,8 @@ sub certedClientsDownload ($c) {
     $filename = $c->param('filename');
     my $file = $dir . $filename;
     print("\nClient request download file: $file\n\n");
-    $c->res->headers->content_type('text/plain');  # application/octet-stream
-    $c->res->headers->content_disposition("attachment; filename=$filename;");
+    $c->res->headers->content_type('application/octet-stream');  # application/octet-stream          text/plain
+    $c->res->headers->content_disposition("attachment; filename=$filename;"); 
     $c->reply->file($file);
 }
 
