@@ -77,8 +77,7 @@ $(document).ready(function () {
       "data": null,
       "render": function (data, type, row) {
         var id = '"' + row.id + '"';
-        var myfile = "'" + data[0] + "'"
-        var html = "<a href='javascript:void(0);'  class='certDelete btn btn-danger btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-times'></i> Delete</a>"
+        var html = "<a href='javascript:void(0);'  class='certDelete btn btn-danger btn-xs' data-toggle='modal' data-target='#certDelModal'  ><i class='fa fa-times'></i> Delete</a>"
         // html += "<a href='javascript:void(0);'   onclick='deleteCertByFilename(" + 99 + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
         html += "<a href='javascript:void(0);' class='certDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
         return html;
@@ -98,10 +97,10 @@ $(document).ready(function () {
   // delete req files with warning modal
   $('#reqDelModal').on('show.bs.modal',
     function (e) {
-      var certFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
-      $(this).on('click', '.btn-danger', { 'filename': certFileName }, function (e) {
+      var reqFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+      $(this).on('click', '.btn-danger', { 'filename': reqFileName }, function (e) {
         // alert("Deleted!!");
-        $.post("/service/reqs/delete", { 'filename': certFileName }, function (result) {
+        $.post("/service/reqs/delete", { 'filename': reqFileName }, function (result) {
               // console.log(result)
               $('#tbreqfiles').DataTable().ajax.reload(); // reload table data
             });
@@ -119,16 +118,16 @@ $(document).ready(function () {
   //   });
   // });
   // delete cert files with warning modal
-  $('#reqDelModal').on('show.bs.modal',
+  $('#certDelModal').on('show.bs.modal',
     function (e) {
       var certFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
       $(this).on('click', '.btn-danger', { 'filename': certFileName }, function (e) {
         // alert("Deleted!!");
-        $.post("/service/reqs/delete", { 'filename': certFileName }, function (result) {
+        $.post("/service/certed/delete", { 'filename': certFileName }, function (result) {
               // console.log(result)
-              $('#tbreqfiles').DataTable().ajax.reload();
+              $('#tbcertfiles').DataTable().ajax.reload();
             });
-        $('#reqDelModal').modal('hide'); // hide modal
+        $('#certDelModal').modal('hide'); // hide modal
         });
     })
 

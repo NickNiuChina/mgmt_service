@@ -175,7 +175,7 @@ sub reqClientsDelete ($c) {
     my $dir = '/opt/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
-        print (" I saw file name $filename\n");
+        print (" Client sent filename to be deleted: $filename\n");
         $result = {'result' => 'true'};
         my $file = $dir . $filename;
         unlink $file;
@@ -196,7 +196,7 @@ sub certedClientsDelete ($c) {
     my $dir = '/opt/validated/';
     $filename = $c->param('filename');
     if ( $filename ) {
-        print (" I saw file name $filename\n");
+        print (" Client sent filename to be deleted: $filename\n");
         $result = {'result' => 'true'};
         my $file = $dir . $filename;
         unlink $file;
