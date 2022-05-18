@@ -11,6 +11,7 @@ $(document).ready(function () {
     "destroy": true,
     "paging": true,
     "ordering": true,
+    "order": [5, "desc"],
     "ajax": {
       'url': "/service/clientstatus/list",
       'type': 'POST',
