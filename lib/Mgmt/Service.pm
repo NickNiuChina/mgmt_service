@@ -20,6 +20,9 @@ sub startup ($self) {
   $r->get('/')->to('Base#index');
   $r->get('/service')->to('Login#index');
   
+  $r->get('/service/clientstatus')->to('Views#clientsStatus');
+  $r->post('/service/clientstatus/list')->to('Views#clientsStatuslist');
+
   $r->get('/service/issue')->to('Views#issuecert');
   $r->post('/service/issue/upload')->to('Views#reqUpload');
 

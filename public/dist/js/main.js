@@ -1,5 +1,52 @@
 $(document).ready(function () {
 
+  $("#tbclientstatus").DataTable({
+    "dom": 'Blfrtip',
+    "responsive": true, "lengthChange": true, "autoWidth": false,
+    // "responsive": true, "lengthChange": true, "autoWidth": true,
+    // "buttons": ["excel", "pdf", "colvis"],
+    "lengthMenu": [10, 50, 100, "1000"],
+    "processing": true,
+    "serverSide": true,
+    "destroy": true,
+    "paging": true,
+    "ordering": true,
+    "ajax": {
+      'url': "/service/clientstatus/list",
+      'type': 'POST',
+      'data': {},
+      'dataType': 'json',
+    },
+    "columnDefs": [
+      {
+        "targets": 5,
+        "data": null,
+        "render": function (data, type, row) {
+          console.log(data[5]);
+          var html = data[5] ? "<i class='fa fa-circle text-green'></i>" : "<i class='fa fa-circle text-red'></i>";
+          return html;
+        }
+      },
+      {
+      "targets": 6,
+      "data": null,
+      "render": function (data, type, row) {
+        console.log(data[5]);
+        if (data[5]) {
+        var html = "<a href='javascript:void(0);' class='reqDelete btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
+        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
+        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+        return html;
+        } else
+        {
+          var html='Unreachable';
+          return html;
+        }
+      }
+    },
+  ],
+  });
+
   // update the fname in the input 
   $(".custom-file > input").on("change", function () {
     var filePath = $(this).val();

@@ -2,6 +2,102 @@ package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template
+sub clientsStatus ($c) {
+   $c->render(template => 'contents/clientsStatus',msg => 'To be filled');
+}
+
+sub clientsStatuslist ($self) {
+    use DBI;
+    my $driver   = "Pg";
+    my $database = "mgmtdb";
+    my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
+    my $userid = "mgmt";
+    my $password = "rootroot";
+    my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+    my $start = $self->req->body_params->param('start');
+    my $draw = $self->req->body_params->param('draw'); 
+    my $table ="ovpnclients";
+    my @fields;
+    my @Data;
+    my $iFilteredTotal;
+    my $iTotal;
+    my @values;
+    my @columns = qw/storename cn ip changedate expiredate status/;
+    my $sql = "SELECT storename, cn, ip, changedate, expiredate, status from ovpnclients";
+    #SQL_CALC_FOUND_ROWS, it is possible to use this mothed to count the rows.
+    # -- Filtering
+    my $searchValue = $self->req->body_params->param('search[value]');
+    if( $searchValue ne '' ) {
+      $sql .= ' WHERE (';
+      $sql .= 'storename LIKE ? OR cn LIKE ? or ip LIKE ? or changedate LIKE ? or expiredate LIKE ? or status LIKE ?)';
+      push @values, ('%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue.'%', '%'. $searchValue .'%');
+    }
+    my $sql_filter = $sql;
+    my @values_filter = @values;
+    # -- Ordering
+    my $sortColumnId = $self->req->body_params->param('order[0][column]'); 
+    my $sortColumnName = "";
+    my $sortDir = "";
+    if ( $sortColumnId ne '' ) {
+        $sql .= ' ORDER BY ';
+        $sortColumnName = $columns[$sortColumnId];
+        my $sortDir = $self->req->body_params->param('order[0][dir]');
+        $sql .= $sortColumnName . ' ' . $sortDir;
+    }
+    ## total rows
+    my $s1th = $dbh->prepare('select count(*) from ovpnclients');
+    $s1th->execute();
+    my $count = $s1th->fetchrow_array();
+    $s1th->finish;
+    # Paging, get 'length' & 'start'
+    my $limit = $self->req->body_params->param('length') || 10;
+    if ($limit == -1) {
+        $limit = $count;
+    }   ## It is too slow to show 5,000,000 on one page, so I disabled to show all in mainpage.js. But this is Ok if there is now so much items.
+    my $offset="0";
+    if($start) {
+      $offset = $start;
+    }
+      $sql .= " LIMIT ? OFFSET ? ";
+      push @values, $limit;
+      push @values, $offset;
+    #*************************************
+    my $sth1 = $dbh->prepare($sql_filter);
+    $sth1->execute(@values_filter);
+    my $filterCount = $sth1->rows;
+    $sth1->finish;
+    ## rows after filter*******************
+    my $sth = $dbh->prepare($sql);
+    $sth->execute(@values);
+    # output hashref
+    my $output = {
+        "draw" => $draw,
+        "recordsTotal" => $count,
+        "recordsFiltered" => $filterCount
+    };
+
+    my $rowcount = 0;
+    my $dataElement = "";
+    # fetching the different rows data.
+    while(my @aRow = $sth->fetchrow_array) {
+            my @row = ();
+                for (my $i = 0; $i < @columns; $i++) {
+                # looping thru different columns, pushing data to an array.
+                $dataElement = "";
+                $dataElement = $aRow[$i];
+                push @row, $dataElement;          
+            }
+            push @row, $rowcount;
+            # add each row data to hash collection.
+            $output->{'data'}[$rowcount] = [@row];
+            $rowcount++;
+    }
+    unless($rowcount) {
+        $output->{'data'} = ''; #we don't want to have 'null'. will break js
+    }
+    $self->render(json => $output);
+}
+
 sub issuecert ($self) {
      # Render template "dir/name.html.ep" with message
         # $self->render(template => 'contents/issuecert', error => '', message => '');

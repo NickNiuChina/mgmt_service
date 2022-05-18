@@ -5,12 +5,10 @@
         <h1 class="text-dark">Tips</h1>
     </div>
     <div class="content px-2">
-        <p><b>Issue certification</b> can help upload and download vpn clients files </p>
+        <p><b>Issue certification</b> can help upload vpn clients req files </p>
         <p><b>OVPN REQ files</b> list all the reqs files</p>
         <p><b>OVPN CLIENT files</b> list all the client files </p>
         <p><b>OVPN CLIENT status</b> list clients status </p>
-        <p><b>Connectios</b> can connect to specific clients </p>
-        <p><b>Recent log</b> show the ovpn script operation logs</p>
         <p><b>CN history</b> list all the CN history including expired ones </p>
     </div>
 </div>

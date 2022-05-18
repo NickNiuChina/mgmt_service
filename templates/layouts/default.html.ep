@@ -58,7 +58,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Tips</a>
       </li>
      </ul>
 
@@ -97,6 +97,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="/service/clientstatus" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>OVPN CLIENT status</p>
+                </a>
+              </li>
 
                 <li class="nav-item">
                 <a href="/service/issue" class="nav-link">
@@ -104,36 +111,21 @@
                   <p>Issue certification</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="/service/reqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN REQ files</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="/service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT files</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/service/clientstatus" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
-                  <p>OVPN CLIENT status</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/service/clientstatus" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
-                  <p>Connectios</p>
-                </a>
-              </li>
-                <li class="nav-item">
-                <a href="/service/clientstatus" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
-                  <p>Recent log</p>
-                </a>
-              </li>
+
               </li>
                 <li class="nav-item">
                 <a href="/service/clientstatus" class="nav-link">
@@ -143,6 +135,8 @@
               </li>
             </ul>
           </li>
+
+          <!--
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-server"></i>
@@ -159,7 +153,8 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li>    -->
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -1,5 +1,26 @@
-CREATE USER mgmt WITH PASSWORD 'rootroot';
+--CREATE USER mgmt WITH PASSWORD 'rootroot';
+
+DO
+$do$
+BEGIN
+   IF EXISTS (
+      SELECT FROM pg_catalog.pg_roles
+      WHERE  rolname = 'mgmt') THEN
+
+      RAISE NOTICE 'Role "mgmt" already exists. Skipping.';
+   ELSE
+      BEGIN   -- nested block
+         CREATE ROLE mgmt LOGIN PASSWORD 'rootroot';
+      EXCEPTION
+         WHEN duplicate_object THEN
+            RAISE NOTICE 'Role "mgmt" was just created by a concurrent transaction. Skipping.';
+      END;
+   END IF;
+END
+$do$;
+
 create database mgmtdb;
+
 GRANT ALL PRIVILEGES ON DATABASE mgmtdb TO mgmt;
 GRANT ALL PRIVILEGES ON all tables in schema public TO mgmt;
 
