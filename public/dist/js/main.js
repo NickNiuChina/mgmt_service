@@ -1,11 +1,23 @@
 $(document).ready(function () {
 
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   $("#tbclientstatus").DataTable({
     "dom": 'Blfrtip',
     "responsive": true, "lengthChange": true, "autoWidth": false,
     // "responsive": true, "lengthChange": true, "autoWidth": true,
     // "buttons": ["excel", "pdf", "colvis"],
-    "lengthMenu": [10, 50, 100, "1000"],
+    "lengthMenu": [20, 50, 100, "1000"],
     "processing": true,
     "serverSide": true,
     "destroy": true,
@@ -20,32 +32,57 @@ $(document).ready(function () {
     },
     "columnDefs": [
       {
+        "targets": 0,
+        "data": null,
+        "render": function (data, type, row) {
+          var html = data[0] ? data[0] : "Unnamed";
+          return html;
+        }
+      },
+      {
+        "targets": 3,
+        "data": null,
+        "render": function (data, type, row) {
+          var rdate = new Date(data[3])
+          // console.log(formatDate(rdate));
+          return formatDate(rdate);
+        }
+      },
+      {
+        "targets": 4,
+        "data": null,
+        "render": function (data, type, row) {
+          var rdate = new Date(data[4])
+          // console.log(formatDate(rdate));
+          return formatDate(rdate);
+        }
+      },
+      {
         "targets": 5,
         "data": null,
         "render": function (data, type, row) {
-          console.log(data[5]);
+          // console.log(data[5]);
           var html = data[5] ? "<i class='fa fa-circle text-green'></i>" : "<i class='fa fa-circle text-red'></i>";
           return html;
         }
       },
       {
-      "targets": 6,
-      "data": null,
-      "render": function (data, type, row) {
-        console.log(data[5]);
-        if (data[5]) {
-        var html = "<a href='javascript:void(0);' class='reqDelete btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
-        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
-        return html;
-        } else
-        {
-          var html='Unreachable';
-          return html;
+        "targets": 6,
+        "data": null,
+        "render": function (data, type, row) {
+          // console.log(data[5]);
+          if (data[5]) {
+            var html = "<a href='javascript:void(0);' class='reqDelete btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
+            html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
+            html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+            return html;
+          } else {
+            var html = 'Unreachable';
+            return html;
+          }
         }
-      }
-    },
-  ],
+      },
+    ],
   });
 
   // update the fname in the input 
