@@ -5,10 +5,8 @@ $(document).ready(function () {
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
-
     return [year, month, day].join('-');
   }
 
@@ -72,9 +70,9 @@ $(document).ready(function () {
         "render": function (data, type, row) {
           // console.log(data[5]);
           if (data[5]) {
-            var html = "<a href='javascript:void(0);' class='reqDelete btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
-            html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-            html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
+            html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
+            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
             return html;
           } else {
             var html = 'Unreachable';
@@ -83,6 +81,15 @@ $(document).ready(function () {
         }
       },
     ],
+  });
+
+  // 443 connection
+  $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
+    var clientIp = $(this).parent().parent().children().eq(2).text();
+    console.log(clientIp);
+    var url = "https://" + clientIp
+    var openNewLink = window.open(url);
+    openNewLink.focus();
   });
 
   // update the fname in the input 
