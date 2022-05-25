@@ -83,15 +83,20 @@ $(document).ready(function () {
     ],
   });
 
-  // 443 connection
+  // Port 443 connection
   $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
     var clientIp = $(this).parent().parent().children().eq(2).text();
     // console.log(clientIp);
     var ipSliceList = clientIp.split('.')
     // console.log(ipSliceList);
     var toUrlpart = 'boss-0x';
-    for (var i=0; i < ipSliceList.length; i++){
-    toUrlpart = toUrlpart + parseInt(ipSliceList[i]).toString(16);
+    for (var i = 0; i < ipSliceList.length; i++) {
+      toUrlpart = toUrlpart + parseInt(ipSliceList[i]).toString(16);
+      console.log(parseInt(ipSliceList[i]).toString(16));
+      var everyPart = parseInt(ipSliceList[i]).toString(16);
+      if (everyPart.length < 2) {
+        everyPart = "0" + everyPart;
+      }
     }
     // console.log(toUrlpart);
     var url = "/" + toUrlpart + "/";
