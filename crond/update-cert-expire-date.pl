@@ -33,7 +33,7 @@ for my $file (@client_crt_files) {
     my $filename = basename($file);
     $filename =~ /^(.*)\.\w+$/;
     $clientName = $1;
-    $stmt = q(SELECT cn,releasedate,expiredate from cnexpiredate where cn = ?;);
+    $stmt = q(SELECT cn,releasedate,expiredate from ovpnclients where cn = ?;);
     $sth = $dbh->prepare($stmt);
     $rv = $sth->execute($clientName) or die $DBI::errstr;
     if($rv < 0){
@@ -44,21 +44,23 @@ for my $file (@client_crt_files) {
     my $expireDate = `openssl x509 -noout -text -in $file | grep -i "Not After" | awk -F 'Not After : ' {'print \$2'}`;
     chomp $releaseDate;
     chomp $expireDate;
+    print "$rows\n";
+    print "$clientName: \n\t$releaseDate\n\t$expireDate\n";
     if (not $rows) {
-	$stmt = q(INSERT INTO cnexpiredate (cn, releasedate, expiredate) values (?, ?, ?););
+	print "Not found, exec insert\n";
+	$stmt = q(INSERT INTO ovpnclients (cn, releasedate, expiredate) values (?, ?, ?););
 	$sth = $dbh->prepare($stmt);
 	$rv = $sth->execute($clientName, $releaseDate, $expireDate) or die $DBI::errstr;
     }
     if ($rows) {
         my @row = $sth->fetchrow_array();
-	if (not $row[2]){
-	    my $cn = $row[0];
-	    $stmt = q(UPDATE cnexpiredate set releasedate = ?, expiredate = ? where cn = ?;);
-            $sth = $dbh->prepare($stmt);
-            $rv = $sth->execute($releaseDate, $expireDate, $clientName) or die $DBI::errstr;
-	    print "Update statement done for: $cn.\n";
+	print "Found: @row\n";
+	my $cn = $row[0];
+	$stmt = q(UPDATE ovpnclients set releasedate = ?, expiredate = ? where cn = ?;);
+        $sth = $dbh->prepare($stmt);
+        $rv = $sth->execute($releaseDate, $expireDate, $clientName) or die $DBI::errstr;
+	print "Update statement done for: $cn.\n";
 
-	}
     } 
 }
 
