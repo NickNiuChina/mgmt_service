@@ -70,10 +70,16 @@ $(document).ready(function () {
         "render": function (data, type, row) {
           // console.log(data[5]);
           if (data[5]) {
-            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
-            html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
-            return html;
+            var reg = RegExp(/boss/);
+            if (data[1].length == 41 || reg.test(data[1])) {
+              var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
+              html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
+              html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+              return html;
+            } else {
+              var html = 'NotApplied';
+              return html;
+            }
           } else {
             var html = 'Unreachable';
             return html;
@@ -86,6 +92,7 @@ $(document).ready(function () {
   // Port 443 connection
   $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
     var clientIp = $(this).parent().parent().children().eq(2).text();
+    var cn = $(this).parent().parent().children().eq(1).text();
     // console.log(clientIp);
     var ipSliceList = clientIp.split('.')
     // console.log(ipSliceList);
