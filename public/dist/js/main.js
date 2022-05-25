@@ -91,15 +91,18 @@ $(document).ready(function () {
     // console.log(ipSliceList);
     var toUrlpart = 'boss-0x';
     for (var i = 0; i < ipSliceList.length; i++) {
-      toUrlpart = toUrlpart + parseInt(ipSliceList[i]).toString(16);
-      console.log(parseInt(ipSliceList[i]).toString(16));
       var everyPart = parseInt(ipSliceList[i]).toString(16);
+      // console.log("长度：" + everyPart.length);
       if (everyPart.length < 2) {
-        everyPart = "0" + everyPart;
+        everyPart = "0" + String(everyPart);
+        // console.log("转化后：" + everyPart);
       }
+      // console.log(parseInt(ipSliceList[i]).toString(16));
+      toUrlpart = toUrlpart + everyPart;
     }
     // console.log(toUrlpart);
     var url = "/" + toUrlpart + "/";
+    console.log("转化后：" + url);
     var openNewLink = window.open(url);
     openNewLink.focus();
   });
