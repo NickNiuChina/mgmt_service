@@ -9,16 +9,16 @@ my $prog = basename($0);
 print "Prog name: $prog\n";
 # like config
 my $clientIssuedDir = '/opt/easyrsa-all/pki/issued';
-my $driver   = "Pg"; 
+my $driver   = "Pg";
 my $database = "mgmtdb";
 my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
 my $userid = "mgmt";
 my $password = "rootroot";
 
-my $dbh = DBI->connect($dsn, $userid, $password, 
-	{
-	RaiseError => 1,
-	pg_server_prepare => 1,
+my $dbh = DBI->connect($dsn, $userid, $password,
+        {
+        RaiseError => 1,
+        pg_server_prepare => 1,
        }
 )  or die $DBI::errstr;
 
@@ -47,6 +47,7 @@ for my $file (@client_crt_files) {
     print "$rows\n";
     print "$clientName: \n\t$releaseDate\n\t$expireDate\n";
     if (not $rows) {
+<<<<<<< HEAD
 	print "Not found, exec insert\n";
 	$stmt = q(INSERT INTO ovpnclients (cn, releasedate, expiredate) values (?, ?, ?););
 	$sth = $dbh->prepare($stmt);
@@ -62,6 +63,23 @@ for my $file (@client_crt_files) {
 	print "Update statement done for: $cn.\n";
 
     } 
+=======
+        print "Not found, exec insert\n";
+        $stmt = q(INSERT INTO ovpnclients (cn, releasedate, expiredate) values (?, ?, ?););
+        $sth = $dbh->prepare($stmt);
+        $rv = $sth->execute($clientName, $releaseDate, $expireDate) or die $DBI::errstr;
+    }
+    if ($rows) {
+        my @row = $sth->fetchrow_array();
+        print "Found: @row\n";
+        my $cn = $row[0];
+        $stmt = q(UPDATE ovpnclients set releasedate = ?, expiredate = ? where cn = ?;);
+        $sth = $dbh->prepare($stmt);
+        $rv = $sth->execute($releaseDate, $expireDate, $clientName) or die $DBI::errstr;
+        print "Update statement done for: $cn.\n";
+
+    }
+>>>>>>> d92557fcde53d49876f79ead158738bdfc79a97e
 }
 
 $sth->finish();

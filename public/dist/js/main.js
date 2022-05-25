@@ -1,11 +1,21 @@
 $(document).ready(function () {
 
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
   $("#tbclientstatus").DataTable({
     "dom": 'Blfrtip',
     "responsive": true, "lengthChange": true, "autoWidth": false,
     // "responsive": true, "lengthChange": true, "autoWidth": true,
     // "buttons": ["excel", "pdf", "colvis"],
-    "lengthMenu": [10, 50, 100, "1000"],
+    "lengthMenu": [20, 50, 100, "1000"],
     "processing": true,
     "serverSide": true,
     "destroy": true,
@@ -13,39 +23,80 @@ $(document).ready(function () {
     "ordering": true,
     "order": [5, "desc"],
     "ajax": {
-      'url': "/service/clientstatus/list",
+      'url': "service/clientstatus/list",
       'type': 'POST',
       'data': {},
       'dataType': 'json',
     },
     "columnDefs": [
       {
+        "targets": 0,
+        "data": null,
+        "render": function (data, type, row) {
+          var html = data[0] ? data[0] : "Unnamed";
+          return html;
+        }
+      },
+      {
+        "targets": 3,
+        "data": null,
+        "render": function (data, type, row) {
+          var rdate = new Date(data[3])
+          // console.log(formatDate(rdate));
+          return formatDate(rdate);
+        }
+      },
+      {
+        "targets": 4,
+        "data": null,
+        "render": function (data, type, row) {
+          var rdate = new Date(data[4])
+          // console.log(formatDate(rdate));
+          return formatDate(rdate);
+        }
+      },
+      {
         "targets": 5,
         "data": null,
         "render": function (data, type, row) {
-          console.log(data[5]);
+          // console.log(data[5]);
           var html = data[5] ? "<i class='fa fa-circle text-green'></i>" : "<i class='fa fa-circle text-red'></i>";
           return html;
         }
       },
       {
-      "targets": 6,
-      "data": null,
-      "render": function (data, type, row) {
-        console.log(data[5]);
-        if (data[5]) {
-        var html = "<a href='javascript:void(0);' class='reqDelete btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
-        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-        html += "<a href='javascript:void(0);' class='reqDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
-        return html;
-        } else
-        {
-          var html='Unreachable';
-          return html;
+        "targets": 6,
+        "data": null,
+        "render": function (data, type, row) {
+          // console.log(data[5]);
+          if (data[5]) {
+            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs' data-toggle='modal' data-target='#reqDelModal'  ><i class='fa fa-arrow-down'></i> Mgmt</a>"
+            html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
+            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+            return html;
+          } else {
+            var html = 'Unreachable';
+            return html;
+          }
         }
-      }
-    },
-  ],
+      },
+    ],
+  });
+
+  // 443 connection
+  $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
+    var clientIp = $(this).parent().parent().children().eq(2).text();
+    // console.log(clientIp);
+    var ipSliceList = clientIp.split('.')
+    // console.log(ipSliceList);
+    var toUrlpart = 'boss-0x';
+    for (var i=0; i < ipSliceList.length; i++){
+    toUrlpart = toUrlpart + parseInt(ipSliceList[i]).toString(16);
+    }
+    // console.log(toUrlpart);
+    var url = "/" + toUrlpart + "/";
+    var openNewLink = window.open(url);
+    openNewLink.focus();
   });
 
   // update the fname in the input 
@@ -77,7 +128,7 @@ $(document).ready(function () {
     // "bLengthChange": true,
     // "lengthMenu": [20, 50, 100, 1000],
     "ajax": {
-      'url': "/service/reqs/list",
+      'url': "service/reqs/list",
       'type': 'POST',
       'data': {},
       'dataType': 'json',
@@ -113,7 +164,7 @@ $(document).ready(function () {
     // "bLengthChange": true,
     // "lengthMenu": [20, 50, 100, 1000],
     "ajax": {
-      'url': "/service/certed/list",
+      'url': "service/certed/list",
       'type': 'POST',
       'data': {},
       'dataType': 'json',
@@ -183,7 +234,7 @@ $(document).ready(function () {
   $('#tbreqfiles tbody').on('click', '.reqDownload', function () {
     var reqFileName = $(this).parent().parent().children(".dtr-control").text();
     //Set the File URL.
-    var url = "/service/reqs/dl/" + reqFileName;
+    var url = "service/reqs/dl/" + reqFileName;
     console.log(url);
     $.ajax({
       url: url,
@@ -227,7 +278,7 @@ $(document).ready(function () {
   $('#tbcertfiles tbody').on('click', '.certDownload', function (e) {
     var certFileName = $(this).parent().parent().children(".dtr-control").text();
     e.preventDefault();
-    var url = '/service/certed/dl/' + certFileName;
+    var url = 'service/certed/dl/' + certFileName;
     console.log(url);
     window.location.href = url;
   });
@@ -235,7 +286,7 @@ $(document).ready(function () {
   // $('#tbcertfiles tbody').on('click', '.certDownload', function () {
   //   var certFileName = $(this).parent().parent().children(".dtr-control").text();
   //   //Set the File URL.
-  //   var url = "/service/reqs/dl/" + certFileName;
+  //   var url = "service/reqs/dl/" + certFileName;
   //   console.log(url);
   //   $.ajax({
   //     url: url,

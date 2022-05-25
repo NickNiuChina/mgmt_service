@@ -6,43 +6,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+  <base href="http://127.0.0.1:3000">
+  </head>
   <title>Carel Site | Service </title>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.css">
+  <link rel="stylesheet" href="dist/css/adminlte.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <link rel="stylesheet" href="/dist/css/main.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="dist/css/main.css">
 
    <!-- jQuery -->
-  <script src="/plugins/jquery/jquery.js"></script>
+  <script src="plugins/jquery/jquery.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <!-- AdminLTE App -->
-  <script src="/dist/js/adminlte.js"></script>
+  <script src="dist/js/adminlte.js"></script>
   <!-- Datatables and plugins -->
-  <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-  <script src="/plugins/jszip/jszip.min.js"></script>
-  <script src="/plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="/plugins/pdfmake/vfs_fonts.js"></script>
-  <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-  <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="plugins/jszip/jszip.min.js"></script>
+  <script src="plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
  
   <!-- Costmized js -->
-  <script src="/dist/js/main.js"></script>
+  <script src="dist/js/main.js"></script>
   <!-- <script src="dist/js/input.js"></script> -->
 </head>
 
@@ -77,7 +80,7 @@
   <aside class="main-sidebar sidebar-light-secondary elevation-4">
     <!-- Brand Logo -->
     <a href="https://www.carel.com/" class="brand-link" target="_blank">
-      <img src="/dist/img/logo_CAREL.jpg" alt="Carel Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="dist/img/logo_CAREL.jpg" alt="Carel Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Carel Service</span>
     </a>
 
@@ -99,28 +102,28 @@
             <ul class="nav nav-treeview">
             
               <li class="nav-item">
-                <a href="/service/clientstatus" class="nav-link">
+                <a href="service/clientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT status</p>
                 </a>
               </li>
 
                 <li class="nav-item">
-                <a href="/service/issue" class="nav-link">
+                <a href="service/issue" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>Issue certification</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="/service/reqs" class="nav-link">
+                <a href="service/reqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN REQ files</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="/service/certed" class="nav-link">
+                <a href="service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT files</p>
                 </a>
@@ -128,7 +131,7 @@
 
               </li>
                 <li class="nav-item">
-                <a href="/service/clientstatus" class="nav-link">
+                <a href="service/clientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>CN history</p>
                 </a>
