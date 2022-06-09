@@ -3,7 +3,7 @@
 <div class="content-wrapper">
 <h1 class="m-0">Update Req file </h1>
  <div class="col-md-6 mx-auto">
-    <form method="post" action="/service/issue/upload" enctype ="multipart/form-data">
+    <form method="post" action="service/issue/upload" enctype ="multipart/form-data">
         <div class="input-group">
             <div class="custom-file">
                 <input type="file" 
