@@ -17,8 +17,9 @@ sub startup ($self) {
   # $r->get('/')->to('Example#welcome');
   # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
 
-  $r->get('/')->to('Base#index');
   $r->get('/service')->to('Login#index');
+  $r->get('/')->to('Base#index');
+  $r->get('/service/tips')->to('Base#index');
   
   $r->get('/service/clientstatus')->to('Views#clientsStatus');
   $r->post('/service/clientstatus/list')->to('Views#clientsStatuslist');
