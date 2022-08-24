@@ -10,7 +10,7 @@
                        class="custom-file-input" 
                        name="upload_req" 
                        id="upload_req" 
-                       accept="text/plain"
+                       accept="text/*"
                        required 
                 />
                 <label class="custom-file-label" for="upload_req">Please select Req file to upload</label>
