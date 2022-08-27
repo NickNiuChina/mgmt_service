@@ -1,12 +1,17 @@
 # Controller
-package Mgmt::Service::Controller::Foo;
+package Mgmt::Service::Controller::Test;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
+use Mojo::Home;
 
 # Action
-sub bar ($c) {
+sub test ($c) {
   my $name = $c->req->param('name');
+  my $home = Mojo::Home->new;
   $c->res->headers->cache_control('max-age=1, no-cache');
-  $c->render(json => {hello => $name});
+  $c->render(
+    json => {hello => $name, 
+    MojoHome => $home }
+  );
 }
 
 1;

@@ -45,9 +45,11 @@ sub startup ($self) {
     $auth->get('/certed/dl/#filename')->to('Views#certedClientsDownload');
     
     
-    ###### Other Urls ########
+    ###### Other Urls test ########
     # $r->get('/bar')->to('Foo#bar');
-    $r->get('/bar')->to(controller => 'Foo', action => 'bar');
+    $r->get('/test')->to(controller => 'Test', action => 'test');
+    $r->get('/welcome')->to('Example#welcome');
+
 
 }
 
