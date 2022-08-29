@@ -63,8 +63,13 @@ sub loginValidate ($c) {
     
     sub authCheck {
       my $c = shift;
+      my $username = $c->session->{username};
       # checks if session flag (is_auth) is already set
-      return 1 if $c->session('is_auth');
+      # return 1 if $c->session('is_auth');
+      if ($c->session('is_auth')){
+        $c->stash(username => $username);
+        return 1;
+      }
       # If session flag not set re-direct to login page again.
       # $self->redirect_to(template => "myTemplates/login", error_message =>  "You are not logged in, please login to access this website");
       # return;
