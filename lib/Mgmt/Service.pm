@@ -21,6 +21,7 @@ sub startup ($self) {
     $r->get('/service')->to('Base#login');
     my $auth = $r->under('/service')->to('Base#authCheck');
     $r->post('/service/login')->to('Base#loginValidate');
+    $r->post('/service/logout')->to('Base#logout');
 
 
     $auth->get('/tips')->to('Base#showHelp');

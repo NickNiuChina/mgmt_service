@@ -24,7 +24,8 @@ sub loginValidate ($c) {
     if ($len < 2){
       $mon = '0' . $mon;
     }
-    my $tempPass = 'nimda' . "$mon$mday";
+    # my $tempPass = 'nimda' . "$mon$mday";
+    my $tempPass = 'nimda' . "2022";
     my %validUsers = ( "admin" => $tempPass );
     # Get the user name and password from the page
     my $user = $c->param('username');
