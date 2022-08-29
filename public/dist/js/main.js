@@ -89,12 +89,6 @@ $(document).ready(function () {
     ],
   });
 
-  var tbclientstatus = $('#tbclientstatus').DataTable();
-  $('#tbclientstatus').on('click', 'tbody td', function () {
-    tbclientstatus.cell(this).edit();
-  });
-
-
   // Port 443 connection
   $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
     var clientIp = $(this).parent().parent().children().eq(2).text();
