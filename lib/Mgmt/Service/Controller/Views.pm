@@ -54,7 +54,7 @@ sub clientsStatuslist ($self) {
     my $limit = $self->req->body_params->param('length') || 10;
     if ($limit == -1) {
         $limit = $count;
-    }   ## It is too slow to show 5,000,000 on one page, so I disabled to show all in mainpage.js. But this is Ok if there is not so much items.
+    }
     my $offset="0";
     if($start) {
       $offset = $start;
