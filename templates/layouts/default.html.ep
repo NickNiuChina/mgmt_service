@@ -43,9 +43,14 @@
   <script type="text/javascript" src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <%# <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script> %>
   <script type="text/javascript" src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script type="text/javascript" src="plugins/datatable-selector/datatable-selector.js"></script>
+  <link  rel="stylesheet" href="plugins/datatable-selector/select.dataTables.css"></link>
+
   <script type="text/javascript" src="plugins/editor-dataTables/dataTables.editor.js"></script>
   <link  rel="stylesheet" href="plugins/editor-dataTables/editor.dataTables.css"></link>
    
+
+
   <%# Costmized js %>
   <script src="dist/js/main.js"></script>
   <%# <script src="dist/js/input.js"></script> %>
