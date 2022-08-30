@@ -28,6 +28,8 @@ sub startup ($self) {
     
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');
+    $auth->post('/clientstatus/update')->to('Views#clientStatusUpdate');
+
 
     $auth->get('/issue')->to('Views#issuecert');
     $auth->post('/issue/upload')->to('Views#reqUpload');

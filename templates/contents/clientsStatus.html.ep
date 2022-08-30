@@ -21,7 +21,30 @@
     <%# /.content-header %>
 
     <%# Main content %>
-
+<%# Modal %>
+<div class="modal fade" id="clientStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clientstatusModalLabel">Update store name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <form method="post" action="javascript: void(0)" enctype ="multipart/form-data">
+          <input type="text" class="form-control" name="newstorename" placeholder="new store name">
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reqDelModal">  %>
+<%# END Modal %>
 
  <div class="card">
               <div class="card-header">
