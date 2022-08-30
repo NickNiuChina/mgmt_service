@@ -98,6 +98,37 @@ sub clientsStatuslist ($self) {
     $self->render(json => $output);
 }
 
+sub clientStatusUpdate ($c) {
+    use DBI;
+    my $driver   = "Pg";
+    my $database = "mgmtdb";
+    my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
+    my $userid = "mgmt";
+    my $password = "rootroot";
+    my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+    my $newstorename;
+    my $result;
+    my $cn;
+    $cn = $c->param('cn');
+    $newstorename = $c->param('newstorename');
+            print ("I saw \$filename: $cn\n");
+        print ("I saw \$newstorename: $newstorename\n");
+    if ( $cn ) {
+        print ("I saw \$filename: $cn\n");
+        print ("I saw \$newstorename: $newstorename\n");
+        my $sql = "update ovpnclients set storename= ? where cn= ?";
+        my @values = ($newstorename, $cn);
+        my $sth = $dbh->prepare($sql);
+        $sth->execute(@values);
+        print "$sql, @values\n";
+        print "Sql done!\n";
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+}
+
 sub issuecert ($self) {
      # Render template "dir/name.html.ep" with message
         # $self->render(template => 'contents/issuecert', error => '', message => '');

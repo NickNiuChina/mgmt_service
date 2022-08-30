@@ -33,7 +33,8 @@ $(document).ready(function () {
         "targets": 0,
         "data": null,
         "render": function (data, type, row) {
-          var html = data[0] ? data[0] : "Unnamed";
+          var temp = data[0] ? data[0] : "Unnamed";
+          var html = "<a href='javascript:void(0);'  class='clientstatus' data-toggle='modal' data-target='#clientStatusModal'>" + temp + "</a>"
           return html;
         }
       },
@@ -88,6 +89,25 @@ $(document).ready(function () {
       },
     ],
   });
+
+  $('#clientStatusModal').on('shown.bs.modal',
+    function (e) {
+      var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+      var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
+      var thismodal = $('#clientStatusModal');
+      thismodal.find('.modal-body').append("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
+      $(this).on('click', '.btn-primary', { 'filename': cn }, function (e) {
+        var newstorename = thismodal.find('input').val();
+        console.log("newstorename:" + newstorename);
+        if (newstorename) {
+          $.post("/service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function (result) {
+            // console.log(result)
+            $('#tbclientstatus').DataTable().ajax.reload(); // reload table data
+          });
+          // $('#reqDelModal').modal('hide'); // hide modal
+        }
+      });
+    })
 
   // Port 443 connection
   $('#tbclientstatus tbody').on('click', '.conn4ect443', function (e) {
