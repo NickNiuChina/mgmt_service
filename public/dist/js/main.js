@@ -100,7 +100,7 @@ $(document).ready(function () {
         var newstorename = thismodal.find('input').val();
         console.log("newstorename:" + newstorename);
         if (newstorename) {
-          $.post("/service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function (result) {
+          $.post("service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function (result) {
             // console.log(result)
             $('#tbclientstatus').DataTable().ajax.reload(); // reload table data
           });
