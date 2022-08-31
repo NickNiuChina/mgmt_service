@@ -1,5 +1,6 @@
 package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
+use Data::Printer;
 
 # This action will render a template
 sub clientsStatus ($c) {
@@ -27,10 +28,11 @@ sub clientsStatuslist ($self) {
     #SQL_CALC_FOUND_ROWS, it is possible to use this mothed to count the rows.
     # -- Filtering
     my $searchValue = $self->req->body_params->param('search[value]');
+    # print $searchValue . "\n";
     if( $searchValue ne '' ) {
       $sql .= ' WHERE (';
-      $sql .= 'storename LIKE ? OR cn LIKE ? or ip LIKE ? or changedate LIKE ? or expiredate LIKE ? or status LIKE ?)';
-      push @values, ('%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue.'%', '%'. $searchValue .'%');
+      $sql .= 'storename LIKE ? OR cn LIKE ? or ip LIKE ?)';
+      push @values, ('%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%');
     }
     my $sql_filter = $sql;
     my @values_filter = @values;
@@ -53,7 +55,7 @@ sub clientsStatuslist ($self) {
     my $limit = $self->req->body_params->param('length') || 10;
     if ($limit == -1) {
         $limit = $count;
-    }   ## It is too slow to show 5,000,000 on one page, so I disabled to show all in mainpage.js. But this is Ok if there is now so much items.
+    }
     my $offset="0";
     if($start) {
       $offset = $start;
@@ -62,6 +64,9 @@ sub clientsStatuslist ($self) {
       push @values, $limit;
       push @values, $offset;
     #*************************************
+    # debug
+    print "SQL: $sql_filter\n";
+    print "Arguments: @values_filter\n";
     my $sth1 = $dbh->prepare($sql_filter);
     $sth1->execute(@values_filter);
     my $filterCount = $sth1->rows;
@@ -95,6 +100,7 @@ sub clientsStatuslist ($self) {
     unless($rowcount) {
         $output->{'data'} = ''; #we don't want to have 'null'. will break js
     }
+    p $output;
     $self->render(json => $output);
 }
 
@@ -170,7 +176,7 @@ sub reqUpload ($c) {
         $c->redirect_to('/service/issue');
     } else {
         $c->flash( error => 'Something wrong during generating cert file.' );
-	$c->redirect_to('/service/issue');
+	      $c->redirect_to('/service/issue');
     }
 }
 
