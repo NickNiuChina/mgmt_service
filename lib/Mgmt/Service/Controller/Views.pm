@@ -1,6 +1,6 @@
 package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
-use Data::Printer;
+#use Data::Printer;
 
 # This action will render a template
 sub clientsStatus ($c) {
@@ -100,7 +100,7 @@ sub clientsStatuslist ($self) {
     unless($rowcount) {
         $output->{'data'} = ''; #we don't want to have 'null'. will break js
     }
-    p $output;
+    # p $output;
     $self->render(json => $output);
 }
 
