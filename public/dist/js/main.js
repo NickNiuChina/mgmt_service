@@ -101,10 +101,10 @@ $(document).ready(function () {
         console.log("newstorename:" + newstorename);
         if (newstorename) {
           $.post("service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function (result) {
-            // console.log(result)
+            console.log("服务器返回结果：" + result.result);
             $('#tbclientstatus').DataTable().ajax.reload(); // reload table data
+            $('#clientStatusModal').modal('hide'); // hide modal
           });
-          // $('#reqDelModal').modal('hide'); // hide modal
         }
       });
     })

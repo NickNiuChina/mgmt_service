@@ -128,6 +128,8 @@ sub clientStatusUpdate ($c) {
         $sth->execute(@values);
         print "$sql, @values\n";
         print "Sql done!\n";
+        $result = {'result' => 'true'};
+        $c->render(json => $result);
     }
     else{
       $result = {'result' => 'false'};
