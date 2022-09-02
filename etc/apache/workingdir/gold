@@ -1,0 +1,16 @@
+####### PVP:IIIPPP########
+<location /boss-0xHEX/>
+        SetOutputFilter proxy-html
+        RequestHeader unset Accept-Encoding
+        ProxyPass  https://IIIPPP/ disablereuse=On
+        ProxyHTMLDocType "<!DOCTYPE html>"
+        #ProxyHTMLURLMap MTstopServerComm(); MTstopServerComm();if(document.getElementById('basePath')){if(document.getElementById('basePath').innerHTML){document.getElementById('basePath').innerHTML='https://service.carel-remote.com:443/boss-0xHEX/boss/'}};
+        ProxyPassReverseCookiePath / /boss-0xHEX/
+        ProxyPassReverse /
+        ProxyHTMLURLMap https://IIIPPP:8443 https://service.carel-remote.com:443/boss-0xHEX/
+        ProxyHTMLURLMap https://IIIPPP:443 https://service.carel-remote.com:443/boss-0xHEX/
+        ProxyHTMLURLMap http://IIIPPP:8080 https://service.carel-remote.com:443/boss-0xHEX/
+        ProxyHTMLURLMap https://IIIPPP https://service.carel-remote.com:443/boss-0xHEX/
+        ProxyHTMLURLMap http://IIIPPP https://service.carel-remote.com:443/boss-0xHEX/
+</location>
+
