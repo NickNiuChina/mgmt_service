@@ -95,7 +95,7 @@ $(document).ready(function () {
       var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
       var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
       var thismodal = $('#clientStatusModal');
-      thismodal.find('.modal-body').append("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
+      thismodal.find('.modal-body').html("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
       $(this).on('click', '.btn-primary', { 'filename': cn }, function (e) {
         var newstorename = thismodal.find('input').val();
         console.log("newstorename:" + newstorename);
