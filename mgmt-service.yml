@@ -2,6 +2,13 @@
 secrets:
   - 28424dd8069fe62f1f91a8d7d5e9ec858d8913e3
 
+db:
+  uname: 'mgmt' 
+  passwd: 'rootroot'
+  dbname: 'mgmtdb' 
+  host: '127.0.0.1'
+  port: 5432
+
 hypnotoad: 
   listen: 
     - 'http://127.0.0.1:3000'

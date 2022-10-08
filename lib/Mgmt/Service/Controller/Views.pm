@@ -1,19 +1,37 @@
 package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
-#use Data::Printer;
+use Data::Printer;
+use DBI;
 
 # This action will render a template
 sub clientsStatus ($c) {
    $c->render(template => 'contents/clientsStatus',msg => 'To be filled');
 }
 
+sub dbc ($c) {
+
+  print "I saw @_\n";
+
+}
+
 sub clientsStatuslist ($self) {
-    use DBI;
+    # print "#######debug##########################\n";
+    # The configuration is available application-wide
+    dbc($self);
+    p $self;
+    my $config = $self->config;
+    # p ($config->{db});
+    # say ($config->{db}->{dbname}); 
+    # $config->{db}-{uname};
+    # print "#######debug end #####################\n";
     my $driver   = "Pg";
-    my $database = "mgmtdb";
-    my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
-    my $userid = "mgmt";
-    my $password = "rootroot";
+    # my $database = "mgmtdb";
+    my $database = $config->{db}->{dbname};
+    my $host = $config->{db}->{host};
+    my $port = $config->{db}->{port};
+    my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
+    my $userid = $config->{db}->{uname};
+    my $password = $config->{db}->{passwd};
     my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
     my $start = $self->req->body_params->param('start');
     my $draw = $self->req->body_params->param('draw'); 
@@ -105,7 +123,6 @@ sub clientsStatuslist ($self) {
 }
 
 sub clientStatusUpdate ($c) {
-    use DBI;
     my $driver   = "Pg";
     my $database = "mgmtdb";
     my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
