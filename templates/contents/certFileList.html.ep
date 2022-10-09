@@ -55,7 +55,7 @@
                   <tr>
                     <th>FileName</th>
                     <th>CreatedDate</th>
-                    <th>ExpireInAmonth</th>
+                    <th>ExpireDate</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -63,7 +63,7 @@
                   <tfoot>
                     <th>FileName</th>
                     <th>CreatedDate</th>
-                    <th>ExpireInAmonth</th>
+                    <th>ExpireDate</th>
                     <th>Action</th>
                   </tfoot>
                 </table>
