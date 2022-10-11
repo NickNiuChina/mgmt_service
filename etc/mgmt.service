@@ -10,5 +10,9 @@ ExecStart=/usr/local/bin/hypnotoad /opt/mgmt_service/script/mgmt_service
 ExecReload=/usr/local/bin/hypnotoad /opt/mgmt_service/script/mgmt_service
 KillMode=process
 
+# hypnotoad run in background has no log
+StandardOutput=append:/var/log/mgmt.log
+StandardError=append:/var/log/mgmt.log
+
 [Install]
 WantedBy=multi-user.target
