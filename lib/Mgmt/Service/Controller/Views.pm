@@ -227,6 +227,7 @@ sub reqsClientsListJson ($self) {
 
   # my $dir = $ENV{MGMTSERVICEDIR};
   my $dir = '/opt/reqs-done';
+  my $cert_dir = '/opt/easyrsa-all';
   
 
   my @client_req_files = glob "$dir/*.req"; 
@@ -247,10 +248,12 @@ sub reqsClientsListJson ($self) {
   my @data;
   my $temp = [];
   my $createDate;
+  my $expireDate;
 
   for $file (@filesOrdered) {
       $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
       # unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+      # $expireDate = 'NA' if $@;
       unshift @data, [$file, $createDate, 'NA'] ;
   }
 
@@ -309,6 +312,7 @@ sub certedClientsListJson ($self) {
   for $file (@filesOrdered) {
       $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
       unshift @data, [$file, $createDate, 'NA'] ;
+      # print "I saw \$file: $file \n";
   }
 
   my $output = {
