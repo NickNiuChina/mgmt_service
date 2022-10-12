@@ -2,10 +2,10 @@ package Mgmt::Service::Controller::Base;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template
-sub index ($self) {
+sub index ($c) {
   # Render template "somedir/fn.html.ep" with message
-  $self = shift;
-  return $self->redirect_to('service');
+  $c = shift;
+  return $c->redirect_to('service');
 }
 
 sub login ($c) {
@@ -31,13 +31,13 @@ sub loginValidate ($c) {
     my $user = $c->param('username');
     my $password = $c->param('password');
     # debug info
-    print "password: $password\n";
-    print "tempPass: $tempPass\n";
+    $c->log->info("password: $password");
+    $c->log->info("tempPass: $tempPass");
     if ($password eq $tempPass) {
-      print "Password Match\n";
+      $c->log->info("Password Match");
     }
     else {
-      print ("Password Not Match\n");
+      $c->log->info("Password Not Match");
     }
     # First check if the user exists
     if($validUsers{$user}){
@@ -71,7 +71,7 @@ sub loginValidate ($c) {
         return 1;
       }
       # If session flag not set re-direct to login page again.
-      # $self->redirect_to(template => "myTemplates/login", error_message =>  "You are not logged in, please login to access this website");
+      # $c->redirect_to(template => "myTemplates/login", error_message =>  "You are not logged in, please login to access this website");
       # return;
       # $c->stash( error   => $c->flash('error') );
       # $c->stash( message => $c->flash('message') );
