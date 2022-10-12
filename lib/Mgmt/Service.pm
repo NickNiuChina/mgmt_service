@@ -1,5 +1,6 @@
 package Mgmt::Service;
 use Mojo::Base 'Mojolicious', -signatures;
+use Data::Printer;
 
 # This method will run once at server start
 sub startup ($self) {
@@ -9,19 +10,23 @@ sub startup ($self) {
 
     # Cron task to update the expire date
     $self->plugin(Cron => '0 1 * * *' => sub {
-        print "Cron: update clients expire date.\n";
+        my $tms = shift;
+        my $re;
+        $re =`echo "Cron: update clients expire date." >> /var/log/mgmt.log`;
         my $file = '/opt/mgmt_service/vpntool/update-expiredate-cron.sh';
+        $re =`echo "Will run: /opt/mgmt_service/vpntool/update-expiredate-cron.sh" >> /var/log/mgmt.log`;
         my $result;
         if (-e $file){
-            print "Running script to update exipredate.\n";
+            $re =`echo "[info]:Running script to update exipredate." >> /var/log/mgmt.log`;
             $result = `bash $file`;
-            print "$result\n";
+            $re = `echo "$result\n" >> /var/log/mgmt.log`;
         } else {
-            print "Did not find expiredate update script. Skipp!!!!\n";
+            $re = `echo "[warn]:Did not find expiredate update script. Skipp!!!!" >> /var/log/mgmt.log`;
         }
-
     });
 
+    $self->log( Mojo::Log->new( path => '/var/log/mgmt.log', level => 'trace' ) );
+    
     # Configure the application
     $self->secrets($config->{secrets});
 

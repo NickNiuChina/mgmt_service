@@ -83,7 +83,7 @@ sub clientsStatuslist ($self) {
       push @values, $offset;
     #*************************************
     # debug
-    print "SQL: $sql_filter\n";
+    $self->log->info("SQL: $sql_filter\n");
     print "Arguments: @values_filter\n";
     my $sth1 = $dbh->prepare($sql_filter);
     $sth1->execute(@values_filter);
