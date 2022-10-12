@@ -14,12 +14,12 @@ sub dbc ($c) {
 
 }
 
-sub clientsStatuslist ($self) {
+sub clientsStatuslist ($c) {
     # print "#######debug##########################\n";
     # The configuration is available application-wide
-    dbc($self);
-    p $self;
-    my $config = $self->config;
+    dbc($c);
+    p $c;
+    my $config = $c->config;
     # p ($config->{db});
     # say ($config->{db}->{dbname}); 
     # $config->{db}-{uname};
@@ -33,8 +33,8 @@ sub clientsStatuslist ($self) {
     my $userid = $config->{db}->{uname};
     my $password = $config->{db}->{passwd};
     my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
-    my $start = $self->req->body_params->param('start');
-    my $draw = $self->req->body_params->param('draw'); 
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
     my $table ="ovpnclients";
     my @fields;
     my @Data;
@@ -45,7 +45,7 @@ sub clientsStatuslist ($self) {
     my $sql = "SELECT storename, cn, ip, changedate, expiredate, status from ovpnclients";
     #SQL_CALC_FOUND_ROWS, it is possible to use this mothed to count the rows.
     # -- Filtering
-    my $searchValue = $self->req->body_params->param('search[value]');
+    my $searchValue = $c->req->body_params->param('search[value]');
     # print $searchValue . "\n";
     if( $searchValue ne '' ) {
       $sql .= ' WHERE (';
@@ -55,13 +55,13 @@ sub clientsStatuslist ($self) {
     my $sql_filter = $sql;
     my @values_filter = @values;
     # -- Ordering
-    my $sortColumnId = $self->req->body_params->param('order[0][column]'); 
+    my $sortColumnId = $c->req->body_params->param('order[0][column]'); 
     my $sortColumnName = "";
     my $sortDir = "";
     if ( $sortColumnId ne '' ) {
         $sql .= ' ORDER BY ';
         $sortColumnName = $columns[$sortColumnId];
-        my $sortDir = $self->req->body_params->param('order[0][dir]');
+        my $sortDir = $c->req->body_params->param('order[0][dir]');
         $sql .= $sortColumnName . ' ' . $sortDir;
     }
     ## total rows
@@ -70,7 +70,7 @@ sub clientsStatuslist ($self) {
     my $count = $s1th->fetchrow_array();
     $s1th->finish;
     # Paging, get 'length' & 'start'
-    my $limit = $self->req->body_params->param('length') || 10;
+    my $limit = $c->req->body_params->param('length') || 10;
     if ($limit == -1) {
         $limit = $count;
     }
@@ -83,8 +83,8 @@ sub clientsStatuslist ($self) {
       push @values, $offset;
     #*************************************
     # debug
-    $self->log->info("SQL: $sql_filter\n");
-    print "Arguments: @values_filter\n";
+    $c->log->info("SQL: $sql_filter\n");
+    $c->log->info("Arguments: @values_filter");
     my $sth1 = $dbh->prepare($sql_filter);
     $sth1->execute(@values_filter);
     my $filterCount = $sth1->rows;
@@ -119,7 +119,7 @@ sub clientsStatuslist ($self) {
         $output->{'data'} = ''; #we don't want to have 'null'. will break js
     }
     # p $output;
-    $self->render(json => $output);
+    $c->render(json => $output);
 }
 
 sub clientStatusUpdate ($c) {
@@ -134,17 +134,17 @@ sub clientStatusUpdate ($c) {
     my $cn;
     $cn = $c->param('cn');
     $newstorename = $c->param('newstorename');
-            print ("I saw \$filename: $cn\n");
-        print ("I saw \$newstorename: $newstorename\n");
+        $c->log->info("I saw filename: $cn");
+        $c->log->info("I saw newstorename: $newstorename");
     if ( $cn ) {
-        print ("I saw \$filename: $cn\n");
-        print ("I saw \$newstorename: $newstorename\n");
+        $c->log->info("I saw \$filename: $cn");
+        $c->log->info("I saw newstorename: $newstorename");
         my $sql = "update ovpnclients set storename= ? where cn= ?";
         my @values = ($newstorename, $cn);
         my $sth = $dbh->prepare($sql);
         $sth->execute(@values);
-        print "$sql, @values\n";
-        print "Sql done!\n";
+        $c->log->info("$sql, @values");
+        $c->log->info("Sql done!");
         $result = {'result' => 'true'};
         $c->render(json => $result);
     }
@@ -154,12 +154,12 @@ sub clientStatusUpdate ($c) {
     }
 }
 
-sub issuecert ($self) {
+sub issuecert ($c) {
      # Render template "dir/name.html.ep" with message
-        # $self->render(template => 'contents/issuecert', error => '', message => '');
-        $self->stash( error   => $self->flash('error') );
-        $self->stash( message => $self->flash('message') );
-        $self->render(template => 'contents/issuecert');
+        # $c->render(template => 'contents/issuecert', error => '', message => '');
+        $c->stash( error   => $c->flash('error') );
+        $c->stash( message => $c->flash('message') );
+        $c->render(template => 'contents/issuecert');
 }
 
 sub reqUpload ($c) {
@@ -199,24 +199,24 @@ sub reqUpload ($c) {
     }
 }
 
-sub reqFilesList ($self) {
-    $self->render(template => 'contents/reqFileList',msg => 'To be filled');
+sub reqFilesList ($c) {
+    $c->render(template => 'contents/reqFileList',msg => 'To be filled');
 }
 
-sub certedClientsList ($self) {
-    $self->render(template => 'contents/certFileList',msg => 'To be filled');
+sub certedClientsList ($c) {
+    $c->render(template => 'contents/certFileList',msg => 'To be filled');
 }
 
-sub reqsClientsListJson ($self) {
+sub reqsClientsListJson ($c) {
   use File::Basename;
   use POSIX qw(strftime);
   # get the param first
-  my $searchValue = $self->req->body_params->param('search[value]');
-  my $sortColumnId = $self->req->body_params->param('order[0][column]');  # ignore now
-  my $sortDir = $self->req->body_params->param('order[0][dir]');   # ignore now
-  my $limit = $self->req->body_params->param('length') || 5;
-  my $start = $self->req->body_params->param('start');
-  my $draw = $self->req->body_params->param('draw'); 
+  my $searchValue = $c->req->body_params->param('search[value]');
+  my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+  my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+  my $limit = $c->req->body_params->param('length') || 5;
+  my $start = $c->req->body_params->param('start');
+  my $draw = $c->req->body_params->param('draw'); 
 
   # 暂时不考率排序的问题
   # 分页也不考虑
@@ -264,20 +264,20 @@ sub reqsClientsListJson ($self) {
         'data'  => \@data
   };
  
-  $self->render(json => $output);
+  $c->render(json => $output);
 
 }
 
-sub certedClientsListJson ($self) {
+sub certedClientsListJson ($c) {
   use File::Basename;
   use POSIX qw(strftime);
   # get the param first
-  my $searchValue = $self->req->body_params->param('search[value]');
-  my $sortColumnId = $self->req->body_params->param('order[0][column]');  # ignore now
-  my $sortDir = $self->req->body_params->param('order[0][dir]');   # ignore now
-  my $limit = $self->req->body_params->param('length') || 5;
-  my $start = $self->req->body_params->param('start');
-  my $draw = $self->req->body_params->param('draw'); 
+  my $searchValue = $c->req->body_params->param('search[value]');
+  my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+  my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+  my $limit = $c->req->body_params->param('length') || 5;
+  my $start = $c->req->body_params->param('start');
+  my $draw = $c->req->body_params->param('draw'); 
 
   # 暂时不考率排序的问题
   # 分页也不考虑
@@ -321,7 +321,7 @@ sub certedClientsListJson ($self) {
         "recordsFiltered" => $count,
         'data'  => \@data
   };
-  $self->render(json => $output);
+  $c->render(json => $output);
 }
 
 sub reqClientsDelete ($c) {
@@ -331,11 +331,11 @@ sub reqClientsDelete ($c) {
     my $dir = '/opt/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
-        print (" Client sent filename to be deleted: $filename\n");
+        $c->log->info(" Client sent filename to be deleted: $filename");
         $result = {'result' => 'true'};
         my $file = $dir . $filename;
         unlink $file;
-        print ($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        $c->log->info($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         $c->render(json => $result);
     }
     else{
@@ -352,11 +352,11 @@ sub certedClientsDelete ($c) {
     my $dir = '/opt/validated/';
     $filename = $c->param('filename');
     if ( $filename ) {
-        print (" Client sent filename to be deleted: $filename\n");
+        $c->log->info(" Client sent filename to be deleted: $filename");
         $result = {'result' => 'true'};
         my $file = $dir . $filename;
         unlink $file;
-        print ($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        $c->log->info($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         $c->render(json => $result);
     }
     else{
@@ -375,9 +375,10 @@ sub reqClientsDownload ($c) {
     my $dir = '/opt/reqs-done/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
-    print("\nClient request download file: $file\n\n");
+    $c->log->info("\nClient request download file: $file");
     $c->res->headers->content_disposition("attachment; filename=$filename;");
     $c->reply->file($file);
+    $c->log->info("Send download file done");
 }
 
 sub certedClientsDownload ($c) {
@@ -387,10 +388,11 @@ sub certedClientsDownload ($c) {
     my $dir = '/opt/validated/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
-    print("\nClient request download file: $file\n\n");
+    $c->log->info("Client request download file: $file");
     $c->res->headers->content_type('application/octet-stream');  # application/octet-stream          text/plain
     $c->res->headers->content_disposition("attachment; filename=$filename;"); 
     $c->reply->file($file);
+    $c->log->info("Send download file done");
 }
 
 1;

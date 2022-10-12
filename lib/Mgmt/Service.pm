@@ -3,13 +3,13 @@ use Mojo::Base 'Mojolicious', -signatures;
 use Data::Printer;
 
 # This method will run once at server start
-sub startup ($self) {
+sub startup ($c) {
 
     # Load configuration from config file
-    my $config = $self->plugin('NotYAMLConfig');
+    my $config = $c->plugin('NotYAMLConfig');
 
     # Cron task to update the expire date
-    $self->plugin(Cron => '0 1 * * *' => sub {
+    $c->plugin(Cron => '0 1 * * *' => sub {
         my $tms = shift;
         my $re;
         $re =`echo "Cron: update clients expire date." >> /var/log/mgmt.log`;
@@ -25,13 +25,13 @@ sub startup ($self) {
         }
     });
 
-    $self->log( Mojo::Log->new( path => '/var/log/mgmt.log', level => 'trace' ) );
+    $c->log( Mojo::Log->new( path => '/var/log/mgmt.log', level => 'trace' ) );
     
     # Configure the application
-    $self->secrets($config->{secrets});
+    $c->secrets($config->{secrets});
 
     # Router
-    my $r = $self->routes;
+    my $r = $c->routes;
     
     $r->get('/')->to('Base#index');
 
