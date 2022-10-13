@@ -1,0 +1,1 @@
+scp -P 22222 -r * root@192.168.56.1:/root/program/perl/mojolicious/mgmt_service

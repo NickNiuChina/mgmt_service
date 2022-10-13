@@ -17,8 +17,10 @@ sub dbc ($c) {
 sub clientsStatuslist ($c) {
     # print "#######debug##########################\n";
     # The configuration is available application-wide
-    dbc($c);
-    p $c;
+    # dbc($c);
+    #  p $c->req;
+    #  p $c->tx;
+    # p $c
     my $config = $c->config;
     # p ($config->{db});
     # say ($config->{db}->{dbname}); 

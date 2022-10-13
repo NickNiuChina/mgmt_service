@@ -24,7 +24,8 @@ sub startup ($c) {
             $re = `echo "[warn]:Did not find expiredate update script. Skipp!!!!" >> /var/log/mgmt.log`;
         }
     });
-
+    
+    # mojo log
     $c->log( Mojo::Log->new( path => '/var/log/mgmt.log', level => 'trace' ) );
     
     # Configure the application
