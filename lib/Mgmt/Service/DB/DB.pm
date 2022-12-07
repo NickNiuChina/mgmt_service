@@ -1,8 +1,4 @@
-package Mgmt::Service::DB::DBUtils;
-use Mojo::Base -base, -signatures;
-
-use Exporter qw(import);
-our @EXPORT = qw(getConn);
+package Mgmt::Service::DB;
 
 sub getConn($self) {
     # my $self = shift;
