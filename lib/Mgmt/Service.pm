@@ -13,8 +13,8 @@ sub startup ($c) {
         my $tms = shift;
         my $re;
         $re =`echo "Cron: update clients expire date." >> /var/log/mgmt.log`;
-        my $file = '/opt/mgmt_service/vpntool/update-expiredate-cron.sh';
-        $re =`echo "Will run: /opt/mgmt_service/vpntool/update-expiredate-cron.sh" >> /var/log/mgmt.log`;
+        my $file = '/opt/mgmt_service/vpntool/update-expiredate-cron.pl';
+        $re =`echo "Will run: /opt/mgmt_service/vpntool/update-expiredate-cron.pl" >> /var/log/mgmt.log`;
         my $result;
         if (-e $file){
             $re =`echo "[info]:Running script to update exipredate." >> /var/log/mgmt.log`;
