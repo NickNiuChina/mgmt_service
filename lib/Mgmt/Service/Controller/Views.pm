@@ -1,6 +1,7 @@
 package Mgmt::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Data::Printer;
+use Mgmt::Service::DB;
 use DBI;
 
 # This action will render a template
@@ -8,33 +9,17 @@ sub clientsStatus ($c) {
    $c->render(template => 'contents/clientsStatus',msg => 'To be filled');
 }
 
-sub dbc ($c) {
-
-  print "I saw @_\n";
-
-}
-
 sub clientsStatuslist ($c) {
     # print "#######debug##########################\n";
-    # The configuration is available application-wide
-    # dbc($c);
     #  p $c->req;
     #  p $c->tx;
-    # p $c
+    # p $c;
     my $config = $c->config;
-    # p ($config->{db});
-    # say ($config->{db}->{dbname}); 
-    # $config->{db}-{uname};
-    # print "#######debug end #####################\n";
-    my $driver   = "Pg";
-    # my $database = "mgmtdb";
-    my $database = $config->{db}->{dbname};
-    my $host = $config->{db}->{host};
-    my $port = $config->{db}->{port};
-    my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
-    my $userid = $config->{db}->{uname};
-    my $password = $config->{db}->{passwd};
-    my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+    # p ($config);
+    # say ($config->{db}->{dbname});
+
+    my $dbh = Mgmt::Service::DB->connect($c);
+    # p $dbh;
     my $start = $c->req->body_params->param('start');
     my $draw = $c->req->body_params->param('draw'); 
     my $table ="ovpnclients";
@@ -120,17 +105,16 @@ sub clientsStatuslist ($c) {
     unless($rowcount) {
         $output->{'data'} = ''; #we don't want to have 'null'. will break js
     }
+    $sth->finish();
+    $dbh->disconnect();
     # p $output;
     $c->render(json => $output);
 }
 
 sub clientStatusUpdate ($c) {
-    my $driver   = "Pg";
-    my $database = "mgmtdb";
-    my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
-    my $userid = "mgmt";
-    my $password = "rootroot";
-    my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+
+    my $dbh = Mgmt::Service::DB->connect($c);
+
     my $newstorename;
     my $result;
     my $cn;
@@ -145,6 +129,8 @@ sub clientStatusUpdate ($c) {
         my @values = ($newstorename, $cn);
         my $sth = $dbh->prepare($sql);
         $sth->execute(@values);
+        $sth->finish;
+        $dbh->disconnect;
         $c->log->info("$sql, @values");
         $c->log->info("Sql done!");
         $result = {'result' => 'true'};
@@ -157,11 +143,11 @@ sub clientStatusUpdate ($c) {
 }
 
 sub issuecert ($c) {
-     # Render template "dir/name.html.ep" with message
-        # $c->render(template => 'contents/issuecert', error => '', message => '');
-        $c->stash( error   => $c->flash('error') );
-        $c->stash( message => $c->flash('message') );
-        $c->render(template => 'contents/issuecert');
+    # Render template "dir/name.html.ep" with message
+    # $c->render(template => 'contents/issuecert', error => '', message => '');
+    $c->stash( error   => $c->flash('error') );
+    $c->stash( message => $c->flash('message') );
+    $c->render(template => 'contents/issuecert');
 }
 
 sub reqUpload ($c) {
@@ -210,63 +196,63 @@ sub certedClientsList ($c) {
 }
 
 sub reqsClientsListJson ($c) {
-  use File::Basename;
-  use POSIX qw(strftime);
-  # get the param first
-  my $searchValue = $c->req->body_params->param('search[value]');
-  my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
-  my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
-  my $limit = $c->req->body_params->param('length') || 5;
-  my $start = $c->req->body_params->param('start');
-  my $draw = $c->req->body_params->param('draw'); 
+    use File::Basename;
+    use POSIX qw(strftime);
+    # get the param first
+    my $searchValue = $c->req->body_params->param('search[value]');
+    my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+    my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+    my $limit = $c->req->body_params->param('length') || 5;
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
 
-  # 暂时不考率排序的问题
-  # 分页也不考虑
-  # 因为数据直接读取的文件目录文件，没有使用数据库
+    # 暂时不考率排序的问题
+    # 分页也不考虑
+    # 因为数据直接读取的文件目录文件，没有使用数据库
 
-  my @filearray = ();
-  my $file;
+    my @filearray = ();
+    my $file;
 
-  # my $dir = $ENV{MGMTSERVICEDIR};
-  my $dir = '/opt/reqs-done';
-  my $cert_dir = '/opt/easyrsa-all';
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/reqs-done';
+    my $cert_dir = '/opt/easyrsa-all';
   
 
-  my @client_req_files = glob "$dir/*.req"; 
-  for my $file (@client_req_files) {
-    my $filename = basename($file);
-    next unless (length($filename) == 40);
-    if ( $searchValue) {
-      next unless $filename =~ /$searchValue/;
+    my @client_req_files = glob "$dir/*.req"; 
+    for my $file (@client_req_files) {
+      my $filename = basename($file);
+      next unless (length($filename) == 40);
+      if ( $searchValue) {
+        next unless $filename =~ /$searchValue/;
+      }
+      unshift @filearray, $filename;
     }
-    unshift @filearray, $filename;
-  }
 
-  # ordering by file name
-  my @filesOrdered = reverse sort {$a cmp $b} @filearray;
-  my $count = @filesOrdered;
+    # ordering by file name
+    my @filesOrdered = reverse sort {$a cmp $b} @filearray;
+    my $count = @filesOrdered;
 
 
-  my @data;
-  my $temp = [];
-  my $createDate;
-  my $expireDate;
+    my @data;
+    my $temp = [];
+    my $createDate;
+    my $expireDate;
 
-  for $file (@filesOrdered) {
-      $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
-      # unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
-      # $expireDate = 'NA' if $@;
-      unshift @data, [$file, $createDate, 'NA'] ;
-  }
+    for $file (@filesOrdered) {
+        $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
+        # unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+        # $expireDate = 'NA' if $@;
+        unshift @data, [$file, $createDate, 'NA'] ;
+    }
 
-  my $output = {
+    my $output = {
         "draw" => $draw,
         "recordsTotal" => $count,
         "recordsFiltered" => $count,
         'data'  => \@data
-  };
+    };
  
-  $c->render(json => $output);
+    $c->render(json => $output);
 
 }
 
