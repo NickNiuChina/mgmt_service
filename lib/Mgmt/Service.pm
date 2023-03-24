@@ -18,7 +18,7 @@ sub startup ($c) {
         my $result;
         if (-e $file){
             $re =`echo "[info]:Running script to update exipredate." >> /var/log/mgmt.log`;
-            $result = `bash $file`;
+            $result = `perl $file >> /var/log/mgmt.log 2>&1`;
             $re = `echo "$result\n" >> /var/log/mgmt.log`;
         } else {
             $re = `echo "[warn]:Did not find expiredate update script. Skipp!!!!" >> /var/log/mgmt.log`;
