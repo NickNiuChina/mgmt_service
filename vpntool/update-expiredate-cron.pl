@@ -51,7 +51,7 @@ foreach my $cn (keys %updatelist)
 {
   # do whatever you want with $key and $value here ...
   $expiredate = $updatelist{$cn};
-  print "Updating client: $cn, $expiredate\n";
+  printf "Updating client:  %-42s  %s\n", $cn . ',', $expiredate;
   $sth->execute($expiredate, $cn);
 }
 
