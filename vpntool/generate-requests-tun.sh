@@ -7,7 +7,7 @@
 
 # Tools and dirs
 export OPENSSL=/usr/bin/openssl
-export EASYRSACMD=/opt/tun-ovpn-files/easyrsa-tcp
+export EASYRSACMD=/opt/tun-ovpn-files/easyrsa/easyrsa
 
 export REQDIR=/opt/tun-ovpn-files/reqs
 
