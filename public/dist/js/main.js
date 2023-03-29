@@ -602,7 +602,7 @@ $(document).ready(function() {
         window.location.href = url;
     });
 
-    $('#tuntbcertfiles tbody').on('click', '.tuncertDownload', function(e) {
+    $('#tuntbcertfiles tbody').on('click', '.certDownload', function(e) {
         var certFileName = $(this).parent().parent().children(".dtr-control").text();
         e.preventDefault();
         var url = 'service/tuncerted/dl/' + certFileName;
