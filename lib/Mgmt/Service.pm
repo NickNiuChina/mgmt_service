@@ -12,13 +12,18 @@ sub startup ($c) {
     $c->plugin(Cron => '0 1 * * *' => sub {
         my $tms = shift;
         my $re;
+        my $result;
         $re =`echo "Cron: update clients expire date." >> /var/log/mgmt.log`;
         my $file = '/opt/mgmt_service/vpntool/update-expiredate-cron.pl';
+        my $filetun = '/opt/mgmt_service/vpntool/update-expiredate-tun-cron.pl';
         $re =`echo "Will run: /opt/mgmt_service/vpntool/update-expiredate-cron.pl" >> /var/log/mgmt.log`;
-        my $result;
+        $re =`echo "Will run: /opt/mgmt_service/vpntool/update-expiredate-tun-cron.pl" >> /var/log/mgmt.log`;
         if (-e $file){
             $re =`echo "[info]:Running script to update exipredate." >> /var/log/mgmt.log`;
             $result = `perl $file >> /var/log/mgmt.log 2>&1`;
+            $re = `echo "$result\n" >> /var/log/mgmt.log`;
+            # for tun server
+            $result = `perl $filetun >> /var/log/mgmt.log 2>&1`;
             $re = `echo "$result\n" >> /var/log/mgmt.log`;
         } else {
             $re = `echo "[warn]:Did not find expiredate update script. Skipp!!!!" >> /var/log/mgmt.log`;
