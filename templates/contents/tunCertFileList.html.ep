@@ -22,7 +22,7 @@
 
     <%# Main content %>
  <%# Modal %>
-<div class="modal fade" id="certDelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tuncertDelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -41,16 +41,13 @@
     </div>
   </div>
 </div>
-<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#certDelModal">  %>
-<%# END Modal %>
-
 
  <div class="card">
               <div class="card-header">
               </div>
               <%# /.card-header %>
               <div class="card-body">
-                <table id="tbcertfiles" class="table table-bordered table-striped table-hover">
+                <table id="tuntbcertfiles" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr>
                     <th>FileName</th>

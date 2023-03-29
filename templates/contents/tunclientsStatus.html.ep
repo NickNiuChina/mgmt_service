@@ -22,11 +22,11 @@
 
     <%# Main content %>
 <%# Modal %>
-<div class="modal fade" id="clientStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tunclientStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="clientstatusModalLabel">Update store name</h5>
+        <h5 class="modal-title" id="tunclientstatusModalLabel">Update store name</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -51,7 +51,7 @@
               </div>
               <%# /.card-header %>
               <div class="card-body">
-                <table id="tbclientstatus" class="table table-bordered table-striped table-hover">
+                <table id="tuntbclientstatus" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr>
                     <th>Store</th>
