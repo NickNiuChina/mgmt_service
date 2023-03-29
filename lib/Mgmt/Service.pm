@@ -51,7 +51,6 @@ sub startup ($c) {
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');
     $auth->post('/clientstatus/update')->to('Views#clientStatusUpdate');
 
-
     $auth->get('/issue')->to('Views#issuecert');
     $auth->post('/issue/upload')->to('Views#reqUpload');
 
@@ -68,6 +67,29 @@ sub startup ($c) {
     $auth->post('/certed/download')->to('Views#certedClientsDownload');
     $auth->get('/certed/dl/#filename')->to('Views#certedClientsDownload');
     
+    #### Add tun mode openvpn server ###############################
+    $auth->get('/tunclientstatus')->to('Views#tunClientsStatus');
+    $auth->post('/tunclientstatus/list')->to('Views#tunClientsStatuslist');
+    $auth->post('/tunclientstatus/update')->to('Views#tunClientStatusUpdate');
+
+    $auth->get('/tunissue')->to('Views#tunIssueCert');
+    $auth->post('/tunissue/upload')->to('Views#tunReqUpload');
+
+    $auth->get('/tunreqs')->to('Views#tunReqFilesList');
+    $auth->post('/tunreqs/list')->to('Views#tunReqsClientsListJson');
+    $auth->post('/tunreqs/delete')->to('Views#tunReqClientsDelete');
+    # They can be especially useful for manually matching file names with extensions, rather than using format detection.
+    # /music/song.mp3 -> /music/#filename -> {filename => 'song.mp3'}
+    $auth->get('/tunreqs/dl/#filename')->to('Views#tunReqClientsDownload');
+    
+    $auth->get('/tuncerted')->to('Views#tunCertedClientsList');
+    $auth->post('/tuncerted/list')->to('Views#tunCertedClientsListJson');
+    $auth->post('/tuncerted/delete')->to('Views#tunCertedClientsDelete');
+    $auth->post('/tuncerted/download')->to('Views#tunCertedClientsDownload');
+    $auth->get('/tuncerted/dl/#filename')->to('Views#tunCertedClientsDownload');
+    ##### Add tun mode openvpn server ##############################
+
+
     
     ###### Other Urls test ########
     # $r->get('/bar')->to('Foo#bar');

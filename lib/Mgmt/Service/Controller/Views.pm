@@ -316,7 +316,7 @@ sub reqClientsDelete ($c) {
     my $filename;
     my $result;
     # my $dir = $ENV{MGMTSERVICEDIR};
-    my $dir = '/opt/reqs-done/';
+    my $dir = '/opt/tun-ovpn-files/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
         $c->log->info(" Client sent filename to be deleted: $filename");
@@ -382,5 +382,381 @@ sub certedClientsDownload ($c) {
     $c->reply->file($file);
     $c->log->info("Send download file done");
 }
+
+# *** Add tun mode openvpn server  *****************************************************************************************************************
+sub tunClientsStatus ($c) {
+   $c->render(template => 'contents/tunclientsStatus',msg => 'To be filled');
+}
+
+sub tunClientsStatuslist ($c) {
+    my $config = $c->config;
+    my $dbh = Mgmt::Service::DB->connect($c);
+    # p $dbh;
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
+    my $table ="tunovpnclients";
+    my @fields;
+    my @Data;
+    my $iFilteredTotal;
+    my $iTotal;
+    my @values;
+    my @columns = qw/storename cn ip changedate expiredate status/;
+    my $sql = "SELECT storename, cn, ip, changedate, expiredate, status from tunovpnclients";
+    #SQL_CALC_FOUND_ROWS, it is possible to use this mothed to count the rows.
+    # -- Filtering
+    my $searchValue = $c->req->body_params->param('search[value]');
+    # print $searchValue . "\n";
+    if( $searchValue ne '' ) {
+      $sql .= ' WHERE (';
+      $sql .= 'storename LIKE ? OR cn LIKE ? or ip LIKE ?)';
+      push @values, ('%'. $searchValue .'%','%'. $searchValue .'%','%'. $searchValue .'%');
+    }
+    my $sql_filter = $sql;
+    my @values_filter = @values;
+    # -- Ordering
+    my $sortColumnId = $c->req->body_params->param('order[0][column]'); 
+    my $sortColumnName = "";
+    my $sortDir = "";
+    if ( $sortColumnId ne '' ) {
+        $sql .= ' ORDER BY ';
+        $sortColumnName = $columns[$sortColumnId];
+        my $sortDir = $c->req->body_params->param('order[0][dir]');
+        $sql .= $sortColumnName . ' ' . $sortDir;
+    }
+    ## total rows
+    my $s1th = $dbh->prepare('select count(*) from tunovpnclients');
+    $s1th->execute();
+    my $count = $s1th->fetchrow_array();
+    $s1th->finish;
+    # Paging, get 'length' & 'start'
+    my $limit = $c->req->body_params->param('length') || 10;
+    if ($limit == -1) {
+        $limit = $count;
+    }
+    my $offset="0";
+    if($start) {
+      $offset = $start;
+    }
+      $sql .= " LIMIT ? OFFSET ? ";
+      push @values, $limit;
+      push @values, $offset;
+    #*************************************
+    # debug
+    $c->log->info("SQL: $sql_filter");
+    $c->log->info("Arguments: @values_filter");
+    my $sth1 = $dbh->prepare($sql_filter);
+    $sth1->execute(@values_filter);
+    my $filterCount = $sth1->rows;
+    $sth1->finish;
+    ## rows after filter*******************
+    my $sth = $dbh->prepare($sql);
+    $sth->execute(@values);
+    # output hashref
+    my $output = {
+        "draw" => $draw,
+        "recordsTotal" => $count,
+        "recordsFiltered" => $filterCount
+    };
+
+    my $rowcount = 0;
+    my $dataElement = "";
+    # fetching the different rows data.
+    while(my @aRow = $sth->fetchrow_array) {
+            my @row = ();
+                for (my $i = 0; $i < @columns; $i++) {
+                # looping thru different columns, pushing data to an array.
+                $dataElement = "";
+                $dataElement = $aRow[$i];
+                push @row, $dataElement;          
+            }
+            push @row, $rowcount;
+            # add each row data to hash collection.
+            $output->{'data'}[$rowcount] = [@row];
+            $rowcount++;
+    }
+    unless($rowcount) {
+        $output->{'data'} = ''; #we don't want to have 'null'. will break js
+    }
+    $sth->finish();
+    $dbh->disconnect();
+    # p $output;
+    $c->render(json => $output);
+}
+
+sub tunClientStatusUpdate ($c) {
+
+    my $dbh = Mgmt::Service::DB->connect($c);
+
+    my $newstorename;
+    my $result;
+    my $cn;
+    $cn = $c->param('cn');
+    $newstorename = $c->param('newstorename');
+        $c->log->info("I saw filename: $cn");
+        $c->log->info("I saw newstorename: $newstorename");
+    if ( $cn ) {
+        $c->log->info("I saw \$filename: $cn");
+        $c->log->info("I saw newstorename: $newstorename");
+        my $sql = "update tunovpnclients set storename= ? where cn= ?";
+        my @values = ($newstorename, $cn);
+        my $sth = $dbh->prepare($sql);
+        $sth->execute(@values);
+        $sth->finish;
+        $dbh->disconnect;
+        $c->log->info("$sql, @values");
+        $c->log->info("Sql done!");
+        $result = {'result' => 'true'};
+        $c->render(json => $result);
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+}
+
+sub tunIssueCert ($c) {
+    # Render template "dir/name.html.ep" with message
+    # $c->render(template => 'contents/issuecert', error => '', message => '');
+    $c->stash( error   => $c->flash('error') );
+    $c->stash( message => $c->flash('message') );
+    $c->render(template => 'contents/tunissuecert');
+}
+
+sub tunReqUpload ($c) {
+ 
+    my ( $req, $req_file );
+    if ( !$c->param('upload_req') ) {
+        $c->flash( error => 'REQ file is required.' );
+        $c->redirect_to('/service/tunissue');
+    }
+
+    # Check for Valid Extension in case of choosing other files
+    my $reqFilename = $c->param('upload_req')->filename ;
+    if ( $reqFilename !~ /\.req$/ ) {
+        $c->flash( error => 'Invalid req file extension. Please check!' );
+        return $c->redirect_to('/service/tunissue');
+    }
+    if (length($reqFilename) != 40) {
+      $c->flash( error => 'Invalid req filename length. Please check!' );
+      return $c->redirect_to('/service/tunissue');
+    }
+
+    # Upload the req file
+    $req = $c->req->upload('upload_req');
+
+    $req_file = '/opt/tun-ovpn-files/reqs/' . $c->param('upload_req')->filename;
+    
+    # debug
+    # print "HHHHHHHHHHHHHHHHHHHHHHHHHH: " . $c->param('upload_req')->filename . "\n";
+    $req->move_to($req_file);
+    my $result = `bash /opt/mgmt_service/vpntool/generate-requests-tun.sh`; # SELFDEFINEDSUCCESS
+    if ( $result =~ /SELFDEFINEDSUCCESS/m ) {
+        $c->flash( message => 'Req file Uploaded sucessfully.' );
+        $c->redirect_to('/service/tunissue');
+    } else {
+        $c->flash( error => 'Something wrong during generating cert file.' );
+	      $c->redirect_to('/service/tunissue');
+    }
+}
+
+sub tunReqFilesList ($c) {
+    $c->render(template => 'contents/tunReqFileList',msg => 'To be filled');
+}
+
+
+sub tunReqsClientsListJson ($c) {
+    use File::Basename;
+    use POSIX qw(strftime);
+    # get the param first
+    my $searchValue = $c->req->body_params->param('search[value]');
+    my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+    my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+    my $limit = $c->req->body_params->param('length') || 5;
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
+
+    # 暂时不考率排序的问题
+    # 分页也不考虑
+    # 因为数据直接读取的文件目录文件，没有使用数据库
+
+    my @filearray = ();
+    my $file;
+
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/reqs-done';
+    my $cert_dir = '/opt/tun-ovpn-files/easyrsa-tcp';
+  
+
+    my @client_req_files = glob "$dir/*.req"; 
+    for my $file (@client_req_files) {
+      my $filename = basename($file);
+      next unless (length($filename) == 40);
+      if ( $searchValue) {
+        next unless $filename =~ /$searchValue/;
+      }
+      unshift @filearray, $filename;
+    }
+
+    # ordering by file name
+    my @filesOrdered = reverse sort {$a cmp $b} @filearray;
+    my $count = @filesOrdered;
+
+
+    my @data;
+    my $temp = [];
+    my $createDate;
+    my $expireDate;
+
+    for $file (@filesOrdered) {
+        $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
+        # unshift @data, [$file, $createDate, 'NA', '<a> NA </a>'] ;
+        # $expireDate = 'NA' if $@;
+        unshift @data, [$file, $createDate, 'NA'] ;
+    }
+
+    my $output = {
+        "draw" => $draw,
+        "recordsTotal" => $count,
+        "recordsFiltered" => $count,
+        'data'  => \@data
+    };
+ 
+    $c->render(json => $output);
+
+}
+
+
+sub tunReqClientsDelete ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/reqs-done/';
+    $filename = $c->param('filename');
+    if ( $filename ) {
+        $c->log->info(" Client sent filename to be deleted: $filename");
+        $result = {'result' => 'true'};
+        my $file = $dir . $filename;
+        unlink $file;
+        $c->log->info($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        $c->render(json => $result);
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+  # $c->redirect_to('/service/certed');
+}
+
+sub reqClientsDownload ($c) {
+    my $filename;
+    my $result;  # for future
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/reqs-done/';
+    $filename = $c->param('filename');
+    my $file = $dir . $filename;
+    $c->log->info("\nClient request download file: $file");
+    $c->res->headers->content_disposition("attachment; filename=$filename;");
+    $c->reply->file($file);
+    $c->log->info("Send download file done");
+}
+
+# ---------------------------------------------------------------------
+
+sub tunCertedClientsList ($c) {
+    $c->render(template => 'contents/tunCertFileList',msg => 'To be filled');
+}
+
+sub tunCertedClientsListJson ($c) {
+    use File::Basename;
+    use POSIX qw(strftime);
+    # get the param first
+    my $searchValue = $c->req->body_params->param('search[value]');
+    my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+    my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+    my $limit = $c->req->body_params->param('length') || 5;
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
+
+    # 暂时不考率排序的问题
+    # 分页也不考虑
+    # 因为数据直接读取的文件目录文件，没有使用数据库
+
+    my @filearray = ();
+    my $file;
+
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/validated';
+
+
+    my @client_req_files = glob "$dir/*.p7mb64"; 
+    for my $file (@client_req_files) {
+      my $filename = basename($file);
+      next unless (length($filename) == 43);
+      if ( $searchValue) {
+        next unless $filename =~ /$searchValue/;
+      }
+      unshift @filearray, $filename;
+    }
+
+    # ordering by file name
+    my @filesOrdered = reverse sort {$a cmp $b} @filearray;
+    my $count = @filesOrdered;
+
+
+    my @data;
+    my $temp = [];
+    my $createDate;
+
+    for $file (@filesOrdered) {
+        $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
+        unshift @data, [$file, $createDate, 'NA'] ;
+        # print "I saw \$file: $file \n";
+    }
+
+    my $output = {
+          "draw" => $draw,
+          "recordsTotal" => $count,
+          "recordsFiltered" => $count,
+          'data'  => \@data
+    };
+    $c->render(json => $output);
+}
+
+sub tunCertedClientsDelete ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/validated/';
+    $filename = $c->param('filename');
+    if ( $filename ) {
+        $c->log->info(" Client sent filename to be deleted: $filename");
+        $result = {'result' => 'true'};
+        my $file = $dir . $filename;
+        unlink $file;
+        $c->log->info($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        $c->render(json => $result);
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+}
+
+sub tunCertedClientsDownload ($c) {
+    my $filename;
+    my $result;  # for future
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/validated/';
+    $filename = $c->param('filename');
+    my $file = $dir . $filename;
+    $c->log->info("Client request download file: $file");
+    $c->res->headers->content_type('application/octet-stream');  # application/octet-stream          text/plain
+    $c->res->headers->content_disposition("attachment; filename=$filename;"); 
+    $c->reply->file($file);
+    $c->log->info("Send download file done");
+}
+
+
+# *** Add tun mode openvpn server  *****************************************************************************************************************
 
 1;

@@ -174,35 +174,35 @@
             <ul class="nav nav-treeview">
             
               <li class="nav-item">
-                <a href="service/clientstatus" class="nav-link">
+                <a href="service/tunclientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT status</p>
                 </a>
               </li>
 
                 <li class="nav-item">
-                <a href="service/issue" class="nav-link">
+                <a href="service/tunissue" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>Issue certification</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="service/reqs" class="nav-link">
+                <a href="service/tunreqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN REQ files</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="service/certed" class="nav-link">
+                <a href="service/tuncerted" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>OVPN CLIENT files</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="service/clientstatus" class="nav-link">
+                <a href="service/tunclientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
                   <p>CN history</p>
                 </a>
