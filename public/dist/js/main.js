@@ -202,7 +202,7 @@ $(document).ready(function() {
                 var newstorename = thismodal.find('input').val();
                 console.log("newstorename:" + newstorename);
                 if (newstorename) {
-                    $.post("service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function(result) {
+                    $.post("service/tunclientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function(result) {
                         console.log("服务器返回结果：" + result.result);
                         $('#tuntbclientstatus').DataTable().ajax.reload(); // reload table data
                         $('#tunclientStatusModal').modal('hide'); // hide modal
@@ -446,7 +446,7 @@ $(document).ready(function() {
             var reqFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
             $(this).on('click', '.btn-danger', { 'filename': reqFileName }, function(e) {
                 // alert("Deleted!!");
-                $.post("/service/reqs/delete", { 'filename': reqFileName }, function(result) {
+                $.post("service/reqs/delete", { 'filename': reqFileName }, function(result) {
                     // console.log(result)
                     $('#tbreqfiles').DataTable().ajax.reload(); // reload table data
                 });
@@ -459,7 +459,7 @@ $(document).ready(function() {
             var reqFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
             $(this).on('click', '.btn-danger', { 'filename': reqFileName }, function(e) {
                 // alert("Deleted!!");
-                $.post("/service/tunreqs/delete", { 'filename': reqFileName }, function(result) {
+                $.post("service/tunreqs/delete", { 'filename': reqFileName }, function(result) {
                     // console.log(result)
                     $('#tuntbreqfiles').DataTable().ajax.reload(); // reload table data
                 });
@@ -482,7 +482,7 @@ $(document).ready(function() {
             var certFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
             $(this).on('click', '.btn-danger', { 'filename': certFileName }, function(e) {
                 // alert("Deleted!!");
-                $.post("/service/certed/delete", { 'filename': certFileName }, function(result) {
+                $.post("service/certed/delete", { 'filename': certFileName }, function(result) {
                     // console.log(result)
                     $('#tbcertfiles').DataTable().ajax.reload();
                 });
@@ -495,7 +495,7 @@ $(document).ready(function() {
             var certFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
             $(this).on('click', '.btn-danger', { 'filename': certFileName }, function(e) {
                 // alert("Deleted!!");
-                $.post("/service/tuncerted/delete", { 'filename': certFileName }, function(result) {
+                $.post("service/tuncerted/delete", { 'filename': certFileName }, function(result) {
                     // console.log(result)
                     $('#tuntbcertfiles').DataTable().ajax.reload();
                 });
@@ -551,7 +551,7 @@ $(document).ready(function() {
     $('#tuntbreqfiles tbody').on('click', '.reqDownload', function() {
         var reqFileName = $(this).parent().parent().children(".dtr-control").text();
         //Set the File URL.
-        var url = "service/reqs/dl/" + reqFileName;
+        var url = "service/tunreqs/dl/" + reqFileName;
         console.log(url);
         $.ajax({
             url: url,
