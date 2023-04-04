@@ -533,8 +533,8 @@ sub tunGenericIssueCert ($c) {
 sub tunGenericIssueCertGenerate ($c) {
     my $cn;
     if ( !$c->param('new_cn') ) {
-        $c->flash( error => 'REQ file is required.' );
-        $c->redirect_to('/service/tunissue');
+        $c->flash( error => 'new cn name is required.' );
+        $c->redirect_to('/service/tungenericissue');
     }
 
     $cn = $c->param('new_cn');
