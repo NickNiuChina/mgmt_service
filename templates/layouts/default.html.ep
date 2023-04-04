@@ -118,7 +118,7 @@
             <a href="javascript:void(0);" class="nav-link">
               <i class="nav-icon fas fa-server"></i>
               <p>
-                OVPN-tcp-1194-tap
+                <del>OVPN-tcp-1194-tap</del>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
