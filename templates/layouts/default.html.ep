@@ -142,7 +142,7 @@
                   <li class="nav-item">
                     <a href="service/tungenericissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>Issue certification</p>
+                      <p>Issue generic certification</p>
                     </a>
                   </li>
 
