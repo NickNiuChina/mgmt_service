@@ -530,6 +530,19 @@ sub tunGenericIssueCert ($c) {
     $c->render(template => 'contents/tungenericissuecert');
 }
 
+sub tunGenericIssueCertGenerate ($c) {
+    my $cn;
+    if ( !$c->param('new_cn') ) {
+        $c->flash( error => 'REQ file is required.' );
+        $c->redirect_to('/service/tunissue');
+    }
+
+    $cn = $c->param('new_cn');
+
+    $c->flash( error => "New cn: $cn" );
+    $c->redirect_to('/service/tungenericissue');
+}
+
 sub tunReqUpload ($c) {
  
     my ( $req, $req_file );
