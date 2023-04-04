@@ -539,7 +539,7 @@ sub tunGenericIssueCertGenerate ($c) {
 
     $cn = $c->param('new_cn');
 
-    $c->flash( error => "New cn: $cn" );
+    $c->flash( error => "这个功能还在开发中\nNew cn: $cn" );
     $c->redirect_to('/service/tungenericissue');
 }
 
