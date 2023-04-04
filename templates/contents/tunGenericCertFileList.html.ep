@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tun Cert Clients List</h1>
+            <h1 class="m-0">Tun Generic Cert Clients List</h1>
           </div><%# /.col %>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -47,7 +47,7 @@
               </div>
               <%# /.card-header %>
               <div class="card-body">
-                <table id="tuntbcertfiles" class="table table-bordered table-striped table-hover">
+                <table id="tuntbgenericcertfiles" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr>
                     <th>FileName</th>

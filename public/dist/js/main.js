@@ -98,7 +98,7 @@ $(document).ready(function() {
         "autoWidth": false,
         // "responsive": true, "lengthChange": true, "autoWidth": true,
         "buttons": ["excel", "colvis"],
-        "lengthMenu": [ 100, 50, 20, "1000"],
+        "lengthMenu": [100, 50, 20, "1000"],
         "processing": true,
         "serverSide": true,
         "destroy": true,
@@ -431,6 +431,47 @@ $(document).ready(function() {
         }],
     });
 
+    $("#tuntbgenericcertfiles").DataTable({
+        "dom": 'Blfrtip',
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        // "responsive": true, "lengthChange": true, "autoWidth": true,
+        // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        "buttons": ["excel", "colvis"],
+        "lengthMenu": [5, 50, 100, 1000],
+        //
+        "processing": true,
+        "serverSide": true,
+        // "searching": true,
+        "destroy": true,
+        "paging": false,
+        // "pagingType": 'input',
+        "ordering": false,
+        // "iDisplayLength": 10,
+        // "bLengthChange": true,
+        // "lengthMenu": [20, 50, 100, 1000],
+        "ajax": {
+            'url': "service/tungenericcerted/list",
+            'type': 'POST',
+            'data': {},
+            'dataType': 'json',
+        },
+        // datatable inline-button
+        // https://datatables.net/reference/option/columnDefs
+        "columnDefs": [{
+            "targets": 3,
+            "data": null,
+            "render": function(data, type, row) {
+                var id = '"' + row.id + '"';
+                var html = "<a href='javascript:void(0);'  class='genericcertDelete btn btn-danger btn-xs' data-toggle='modal' data-target='#tungenericcertDelModal'  ><i class='fa fa-times'></i> Delete</a>"
+                    // html += "<a href='javascript:void(0);'   onclick='deleteCertByFilename(" + 99 + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
+                html += "<a href='javascript:void(0);' class='genericcertDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
+                return html;
+            }
+        }],
+    });
+
     // delete req files
     // $('#tbreqfiles tbody').on('click', '.reqDelete', function () {
     //   var reqFileName = $(this).parent().parent().children(".dtr-control").text();
@@ -500,6 +541,19 @@ $(document).ready(function() {
                     $('#tuntbcertfiles').DataTable().ajax.reload();
                 });
                 $('#tuncertDelModal').modal('hide'); // hide modal
+            });
+        })
+
+    $('#tungenericcertDelModal').on('show.bs.modal',
+        function(e) {
+            var certFileName = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+            $(this).on('click', '.btn-danger', { 'filename': certFileName }, function(e) {
+                // alert("Deleted!!");
+                $.post("service/tungenericcerted/delete", { 'filename': certFileName }, function(result) {
+                    // console.log(result)
+                    $('#tuntbgenericcertfiles').DataTable().ajax.reload();
+                });
+                $('#tungenericcertDelModal').modal('hide'); // hide modal
             });
         })
 
