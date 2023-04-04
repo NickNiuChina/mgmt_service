@@ -16,21 +16,24 @@
                        required 
                 />
                 <label class="custom-file-label" for="upload_req">Please select Req file to upload</label>
-            </div>
+        </div>
           <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" value="Upload" />
           </div>
         </div>
     </form>
     -->
-    <form>
+    <form method="post" action="service/tungenericissue/generate" enctype ="multipart/form-data">
         <div class="form-group">
             <label>请输入需要生成的CN：</label>
             <div class="input-group">
-            <div class="input-group-addon">
-                <i class="fa fa-user"></i>
+                <div class="input-group-addon">
+                    <i class="fa fa-font"></i>
+                </div>
+                <input type="text" placeholder="请输入cn" class="form-control"/>
             </div>
-            <input type="text" placeholder="请输入cn" class="form-control"/>
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Upload" />
             </div>
         </div>
         

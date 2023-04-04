@@ -81,6 +81,8 @@ sub startup ($c) {
     $auth->post('/tunissue/upload')->to('Views#tunReqUpload');
 
     $auth->get('/tungenericissue')->to('Views#tunGenericIssueCert');
+    $auth->get('/tungenericissue/generate')->to('Views#tunGenericIssueCertGenerate');
+    
 
     $auth->get('/tunreqs')->to('Views#tunReqFilesList');
     $auth->post('/tunreqs/list')->to('Views#tunReqsClientsListJson');
