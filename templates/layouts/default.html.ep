@@ -178,35 +178,35 @@
               <li class="nav-item">
                 <a href="service/clientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p>OVPN CLIENT status</p>
+                  <p><del>OVPN CLIENT status</del></p>
                 </a>
               </li>
 
                 <li class="nav-item">
                 <a href="service/issue" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p>Issue certification</p>
+                  <p><del>Issue certification</del></p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="service/reqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p>OVPN REQ files</p>
+                  <p><del>OVPN REQ files</del></p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p>OVPN CLIENT files</p>
+                  <p><del>OVPN CLIENT files</del></p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="service/clientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p>CN history</p>
+                  <p><del>CN history</del></p>
                 </a>
               </li>
 
