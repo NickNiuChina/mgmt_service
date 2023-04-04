@@ -464,9 +464,9 @@ $(document).ready(function() {
             "data": null,
             "render": function(data, type, row) {
                 var id = '"' + row.id + '"';
-                var html = "<a href='javascript:void(0);'  class='genericcertDelete btn btn-danger btn-xs' data-toggle='modal' data-target='#tungenericcertDelModal'  ><i class='fa fa-times'></i> Delete</a>"
+                var html = "<a href='javascript:void(0);'  class='certDelete btn btn-danger btn-xs' data-toggle='modal' data-target='#tungenericcertDelModal'  ><i class='fa fa-times'></i> Delete</a>"
                     // html += "<a href='javascript:void(0);'   onclick='deleteCertByFilename(" + 99 + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
-                html += "<a href='javascript:void(0);' class='genericcertDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
+                html += "<a href='javascript:void(0);' class='certDownload btn btn-default btn-xs'><i class='fa fa-arrow-down'></i>Download</a>"
                 return html;
             }
         }],
@@ -601,7 +601,7 @@ $(document).ready(function() {
         });
     });
 
-    // req files download
+    // tun req files download
     $('#tuntbreqfiles tbody').on('click', '.reqDownload', function() {
         var reqFileName = $(this).parent().parent().children(".dtr-control").text();
         //Set the File URL.
@@ -660,6 +660,14 @@ $(document).ready(function() {
         var certFileName = $(this).parent().parent().children(".dtr-control").text();
         e.preventDefault();
         var url = 'service/tuncerted/dl/' + certFileName;
+        console.log(url);
+        window.location.href = url;
+    });
+
+    $('#tuntbgenericcertfiles tbody').on('click', '.certDownload', function(e) {
+        var certFileName = $(this).parent().parent().children(".dtr-control").text();
+        e.preventDefault();
+        var url = 'service/tungenericcerted/dl/' + certFileName;
         console.log(url);
         window.location.href = url;
     });
