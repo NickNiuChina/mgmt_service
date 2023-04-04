@@ -49,7 +49,7 @@ sub loginValidate ($c) {
             $c->session(expiration => 1800);        # expire this session in 10 minutes if no activity
             # Re-direct to home page
             # &welcome($c);
-            $c->redirect_to('/service/clientstatus')
+            $c->redirect_to('/service/tunclientstatus')
         }else{
             # If password is incorrect, re-direct to login page and then display appropriate message
             $c->flash( error => 'Invalid User/Password, please try again' );
