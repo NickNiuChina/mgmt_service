@@ -756,6 +756,99 @@ sub tunCertedClientsDownload ($c) {
     $c->log->info("Send download file done");
 }
 
+sub tunGenericCertedClientsList ($c) {
+    $c->render(template => 'contents/tunGenericCertFileList',msg => 'To be filled');
+}
+
+sub tunGenericCertedClientsListJson ($c) {
+    use File::Basename;
+    use POSIX qw(strftime);
+    # get the param first
+    my $searchValue = $c->req->body_params->param('search[value]');
+    my $sortColumnId = $c->req->body_params->param('order[0][column]');  # ignore now
+    my $sortDir = $c->req->body_params->param('order[0][dir]');   # ignore now
+    my $limit = $c->req->body_params->param('length') || 5;
+    my $start = $c->req->body_params->param('start');
+    my $draw = $c->req->body_params->param('draw'); 
+
+    # 暂时不考率排序的问题
+    # 分页也不考虑
+    # 因为数据直接读取的文件目录文件，没有使用数据库
+
+    my @filearray = ();
+    my $file;
+
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/generic-ovpn';
+
+
+    my @client_req_files = glob "$dir/*.zip"; 
+    for my $file (@client_req_files) {
+      my $filename = basename($file);
+    #   next unless (length($filename) == 43);
+      if ( $searchValue) {
+        next unless $filename =~ /$searchValue/;
+      }
+      unshift @filearray, $filename;
+    }
+
+    # ordering by file name
+    my @filesOrdered = reverse sort {$a cmp $b} @filearray;
+    my $count = @filesOrdered;
+
+
+    my @data;
+    my $temp = [];
+    my $createDate;
+
+    for $file (@filesOrdered) {
+        $createDate = strftime("%Y/%m/%d_%H:%M:%S", localtime((stat "$dir/$file")[10] ));
+        unshift @data, [$file, $createDate, 'NA'] ;
+        # print "I saw \$file: $file \n";
+    }
+
+    my $output = {
+          "draw" => $draw,
+          "recordsTotal" => $count,
+          "recordsFiltered" => $count,
+          'data'  => \@data
+    };
+    $c->render(json => $output);
+}
+
+sub tunGenericCertedClientsDelete ($c) {
+    my $filename;
+    my $result;
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/generic-ovpn';
+    $filename = $c->param('filename');
+    if ( $filename ) {
+        $c->log->info(" Client sent filename to be deleted: $filename");
+        $result = {'result' => 'true'};
+        my $file = $dir . $filename;
+        unlink $file;
+        $c->log->info($file . " deleted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        $c->render(json => $result);
+    }
+    else{
+      $result = {'result' => 'false'};
+      $c->render(json => $result);
+    }
+}
+
+sub tunGenericCertedClientsDownload ($c) {
+    my $filename;
+    my $result;  # for future
+    # my $dir = $ENV{MGMTSERVICEDIR};
+    my $dir = '/opt/tun-ovpn-files/generic-ovpn';
+    $filename = $c->param('filename');
+    my $file = $dir . $filename;
+    $c->log->info("Client request download file: $file");
+    $c->res->headers->content_type('application/octet-stream');  # application/octet-stream          text/plain
+    $c->res->headers->content_disposition("attachment; filename=$filename;"); 
+    $c->reply->file($file);
+    $c->log->info("Send download file done");
+}
 
 # *** Add tun mode openvpn server  *****************************************************************************************************************
 

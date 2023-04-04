@@ -154,6 +154,13 @@
                   </li>
     
                   <li class="nav-item">
+                    <a href="service/tungenericcerted" class="nav-link">
+                      <i class="far fa-file nav-icon"></i>
+                      <p> OVPN generic CLIENT</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
                     <a href="service/tunclientstatus" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
                       <p>CN history</p>

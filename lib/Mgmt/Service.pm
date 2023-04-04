@@ -92,6 +92,14 @@ sub startup ($c) {
     $auth->post('/tuncerted/delete')->to('Views#tunCertedClientsDelete');
     $auth->post('/tuncerted/download')->to('Views#tunCertedClientsDownload');
     $auth->get('/tuncerted/dl/#filename')->to('Views#tunCertedClientsDownload');
+
+    $auth->get('/tungenericcerted')->to('Views#tunGenericCertedClientsList');
+    $auth->post('/tungenericcerted/list')->to('Views#tunGenericCertedClientsListJson');
+    $auth->post('/tungenericcerted/delete')->to('Views#tunGenericCertedClientsDelete');
+    $auth->post('/tungenericcerted/download')->to('Views#tunGenericCertedClientsDownload');
+    $auth->get('/tungenericcerted/dl/#filename')->to('Views#tunGenericCertedClientsDownload');
+
+
     ##### Add tun mode openvpn server ##############################
 
 
