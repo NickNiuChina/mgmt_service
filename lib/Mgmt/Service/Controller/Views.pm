@@ -820,7 +820,7 @@ sub tunGenericCertedClientsDelete ($c) {
     my $filename;
     my $result;
     # my $dir = $ENV{MGMTSERVICEDIR};
-    my $dir = '/opt/tun-ovpn-files/generic-ovpn';
+    my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     $filename = $c->param('filename');
     if ( $filename ) {
         $c->log->info(" Client sent filename to be deleted: $filename");
@@ -840,7 +840,7 @@ sub tunGenericCertedClientsDownload ($c) {
     my $filename;
     my $result;  # for future
     # my $dir = $ENV{MGMTSERVICEDIR};
-    my $dir = '/opt/tun-ovpn-files/generic-ovpn';
+    my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
     $c->log->info("Client request download file: $file");
