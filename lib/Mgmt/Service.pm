@@ -80,6 +80,8 @@ sub startup ($c) {
     $auth->get('/tunissue')->to('Views#tunIssueCert');
     $auth->post('/tunissue/upload')->to('Views#tunReqUpload');
 
+    $auth->get('/tungenericissue')->to('Views#tunGenericIssueCert');
+
     $auth->get('/tunreqs')->to('Views#tunReqFilesList');
     $auth->post('/tunreqs/list')->to('Views#tunReqsClientsListJson');
     $auth->post('/tunreqs/delete')->to('Views#tunReqClientsDelete');

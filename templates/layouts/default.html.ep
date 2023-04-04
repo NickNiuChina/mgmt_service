@@ -132,13 +132,20 @@
                     </a>
                   </li>
     
-                    <li class="nav-item">
+                  <li class="nav-item">
                     <a href="service/tunissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
                       <p>Issue certification</p>
                     </a>
                   </li>
-    
+
+                  <li class="nav-item">
+                    <a href="service/tungenericissue" class="nav-link">
+                      <i class="far fa-file nav-icon"></i>
+                      <p>Issue certification</p>
+                    </a>
+                  </li>
+
                   <li class="nav-item">
                     <a href="service/tunreqs" class="nav-link">
                       <i class="far fa-file nav-icon"></i>

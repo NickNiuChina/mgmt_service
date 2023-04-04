@@ -1,0 +1,36 @@
+  % layout 'default';
+
+<div class="content-wrapper">
+<h1 class="m-0">Generate generic certification for tun clients</h1>
+ <div class="col-md-6 mx-auto">
+    <form method="post" action="service/tunissue/upload" enctype ="multipart/form-data">
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" 
+                       class="custom-file-input" 
+                       name="upload_req" 
+                       id="upload_req" 
+                       accept="text/*"
+                       required 
+                />
+                <label class="custom-file-label" for="upload_req">Please select Req file to upload</label>
+            </div>
+          <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Upload" />
+          </div>
+        </div>
+    </form>
+</div>
+
+% if ( $error ) {
+    <div class="alert alert-danger col-md-6 mx-auto">
+        <p> <%= $error %> </p>
+    </div>
+% }
+
+% if ( $message ) {
+    <div class="alert alert-success col-md-6 mx-auto">
+        <p> <%= $message %> </p>
+    </div>
+% }
+</div>

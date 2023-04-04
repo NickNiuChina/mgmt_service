@@ -522,6 +522,14 @@ sub tunIssueCert ($c) {
     $c->render(template => 'contents/tunissuecert');
 }
 
+sub tunGenericIssueCert ($c) {
+    # Render template "dir/name.html.ep" with message
+    # $c->render(template => 'contents/issuecert', error => '', message => '');
+    $c->stash( error   => $c->flash('error') );
+    $c->stash( message => $c->flash('message') );
+    $c->render(template => 'contents/tungenericissuecert');
+}
+
 sub tunReqUpload ($c) {
  
     my ( $req, $req_file );
