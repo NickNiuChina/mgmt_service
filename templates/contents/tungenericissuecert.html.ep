@@ -26,8 +26,8 @@
     -->
     <form method="post" action="service/tungenericissue/generate" enctype ="multipart/form-data">
         <div class="input-group">
+            <label>请输入需要生成的CN：</label>
             <div class="input-group">
-                <label>请输入需要生成的CN：</label>
                 <input type="text" 
                         placeholder="请输入cn" 
                         class="custom-text-input" 
