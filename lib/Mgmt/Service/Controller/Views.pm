@@ -539,7 +539,8 @@ sub tunGenericIssueCertGenerate ($c) {
 
     $cn = $c->param('new_cn');
     my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
-    if ( ! -e $dir . $cn){
+    my $cnZip = $dir . $cn . '.zip';
+    if ( -e $dir . $cn){
         $c->flash( error => "This cn already existed: New cn: $cn" );
         $c->redirect_to('/service/tungenericissue');
     } 
