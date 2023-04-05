@@ -541,16 +541,18 @@ sub tunGenericIssueCertGenerate ($c) {
     chomp $cn;
     my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     my $cnZip = $dir . $cn . '.zip';
-    $c->log->info("Requested to generate new cn for generic clients: $cn");
+    $c->log->info("Requested to generate new cn for generic clients: |$cn|");
     $c->log->info("Check if zip existed: $cnZip");
 
-    if ( -e $dir . $cn){
+    # check if there is special character
+    
+    if ( -e $cnZip){
         $c->flash( error => "This cn already existed: New cn: $cn" );
         $c->redirect_to('/service/tungenericissue');
     } 
     else
     {
-        $c->flash( error => "这个功能还在开发中\nNew cn: $cn" );
+        $c->flash( message => "这个功能还在开发中\nNew cn: $cn" );
         $c->redirect_to('/service/tungenericissue');
     }
 }
