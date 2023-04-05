@@ -546,7 +546,7 @@ sub tunGenericIssueCertGenerate ($c) {
     $c->log->info("Requested to generate new cn for generic clients: |$cn|");
     $c->log->info("Check if zip existed: $cnZip");
     
-    unless ( $cn =~ /[a-zA-Z-_]*/ ){
+    unless ( $cn =~ /^[A-z0-9-_]*$/ ){
         $c->flash( error => "Special character is illegal: New cn: $cn" );
         $c->redirect_to('/service/tungenericissue');
     } 
