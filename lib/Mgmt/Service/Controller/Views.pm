@@ -545,7 +545,11 @@ sub tunGenericIssueCertGenerate ($c) {
     my $cnZip = $dir . $cn . '.zip';
     $c->log->info("Requested to generate new cn for generic clients: |$cn|");
     $c->log->info("Check if zip existed: $cnZip");
-
+    
+    unless ( $cn =~ /[a-zA-Z-_]*/ ){
+        $c->flash( error => "Special character is illegal: New cn: $cn" );
+        $c->redirect_to('/service/tungenericissue');
+    } 
     # check if there is special character
     
     if ( -e $cnZip){
