@@ -539,6 +539,8 @@ sub tunGenericIssueCertGenerate ($c) {
 
     $cn = $c->param('new_cn');
     chomp $cn;
+    $cn =~ s/\s+$//;
+    $cn =~ s/^\s+//;
     my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     my $cnZip = $dir . $cn . '.zip';
     $c->log->info("Requested to generate new cn for generic clients: |$cn|");
