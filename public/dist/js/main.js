@@ -68,6 +68,7 @@ $(document).ready(function() {
             },
             {
                 "targets": 6,
+		"orderable": false,
                 "data": null,
                 "render": function(data, type, row) {
                     // console.log(data[5]);
@@ -149,6 +150,7 @@ $(document).ready(function() {
             },
             {
                 "targets": 6,
+		"orderable": false,
                 "data": null,
                 "render": function(data, type, row) {
                     // console.log(data[5]);
