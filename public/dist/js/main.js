@@ -197,12 +197,9 @@ $(document).ready(function() {
 
     $("#clientStatusModal").on("hidden.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#clientStatusModal').find("input[type=text], textarea").val("");
-        $("#clientStatusModal").modal("dispose");
+        $(this).find('form').trigger('reset');
     });
 
-    $("#clientStatusModal").on("hide.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
-        $('#clientStatusModal').find("input[type=text], textarea").val("");
-    });
 
     $('#tunclientStatusModal').on('shown.bs.modal',
         function(e) {
@@ -225,12 +222,9 @@ $(document).ready(function() {
 
     $("#tunclientStatusModal").on("hidden.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#tunclientStatusModal').find("input[type=text], textarea").val("");
-        $("#tunclientStatusModal").modal("dispose");
+        $(this).find('form').trigger('reset');
     });
 
-    $("#tunclientStatusModal").on("hide.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
-        $('#tunclientStatusModal').find("input[type=text], textarea").val("");
-    });
 
     // Port 443 connection
     $('#tbclientstatus tbody').on('click', '.conn4ect443', function(e) {
