@@ -197,12 +197,12 @@ $(document).ready(function() {
 
     $("#clientStatusModal").on("hidden.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#clientStatusModal').find("input[type=text], textarea").val("");
-        $("#clientStatusModal").modal("dispose");;
+        $("#clientStatusModal").modal("dispose");
     });
 
     $("#clientStatusModal").on("hide.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#clientStatusModal').find("input[type=text], textarea").val("");
-        $("#clientStatusModal").modal("dispose");;
+        $("#clientStatusModal").modal("dispose");
     });
 
     $('#tunclientStatusModal').on('shown.bs.modal',
