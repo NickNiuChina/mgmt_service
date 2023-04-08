@@ -202,7 +202,6 @@ $(document).ready(function() {
 
     $("#clientStatusModal").on("hide.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#clientStatusModal').find("input[type=text], textarea").val("");
-        $("#clientStatusModal").modal("dispose");
     });
 
     $('#tunclientStatusModal').on('shown.bs.modal',
@@ -231,7 +230,6 @@ $(document).ready(function() {
 
     $("#tunclientStatusModal").on("hide.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#tunclientStatusModal').find("input[type=text], textarea").val("");
-        $("#tunclientStatusModal").modal("dispose");
     });
 
     // Port 443 connection
