@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var cn;
+    var storename;
+
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -177,8 +180,8 @@ $(document).ready(function() {
 
     $('#clientStatusModal').on('shown.bs.modal',
         function(e) {
-            var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
-            var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
+            storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+            cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
             var thismodal = $('#clientStatusModal');
             thismodal.find('.modal-body').html("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
             $(this).on('click', '.btn-primary', { 'filename': cn }, function(e) {
@@ -203,8 +206,8 @@ $(document).ready(function() {
 
     $('#tunclientStatusModal').on('shown.bs.modal',
         function(e) {
-            var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
-            var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
+            storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+            cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
             var thismodal = $('#tunclientStatusModal');
             thismodal.find('.modal-body').html("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
             $(this).on('click', '.btn-primary', { 'filename': cn }, function(e) {
