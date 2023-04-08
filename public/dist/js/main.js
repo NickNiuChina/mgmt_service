@@ -195,7 +195,7 @@ $(document).ready(function() {
 
         });
 
-    $("#clientStatusModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
+    $("#clientStatusModal").on("hidden.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#clientStatusModal').find("input[type=text], textarea").val("");
         $("#clientStatusModal").remove();
     });
@@ -219,7 +219,7 @@ $(document).ready(function() {
             });
         });
 
-    $("#tunclientStatusModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
+    $("#tunclientStatusModal").on("hidden.bs.modal", function(e) { // remove the actual elements from the DOM when fully hidden
         $('#tunclientStatusModal').find("input[type=text], textarea").val("");
         $("#tunclientStatusModal").remove();
     });
