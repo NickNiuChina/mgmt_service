@@ -193,7 +193,11 @@ $(document).ready(function() {
                 }
             });
 
-        })
+        });
+
+    $("#clientStatusModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
+        $("#clientStatusModal").remove();
+    });
 
     $('#tunclientStatusModal').on('shown.bs.modal',
         function(e) {
@@ -212,9 +216,11 @@ $(document).ready(function() {
                     });
                 }
             });
-        })
+        });
 
-
+    $("#tunclientStatusModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
+        $("#tunclientStatusModal").remove();
+    });
 
     // Port 443 connection
     $('#tbclientstatus tbody').on('click', '.conn4ect443', function(e) {
