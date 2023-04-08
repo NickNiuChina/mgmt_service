@@ -177,12 +177,8 @@ $(document).ready(function() {
 
     $('#clientStatusModal').on('shown.bs.modal',
         function(e) {
-            var index = $(this).context._DT_RowIndex;
-            //此处拿到隐藏列的值
-            var storename = $('#datatable').DataTable().row(index).data().storename; // name是"columns" { "data": "name"},里面对应的name
-            var cn = $('#datatable').DataTable().row(index).data().cn;
-            // var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
-            // var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
+            var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
+            var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
             var thismodal = $('#clientStatusModal');
             thismodal.find('.modal-body').html("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
             $(this).on('click', '.btn-primary', { 'filename': cn }, function(e) {
@@ -197,21 +193,6 @@ $(document).ready(function() {
                 }
             });
 
-            // var storename = $(e.relatedTarget).parent().parent().children(".dtr-control").text();
-            // var cn = $(e.relatedTarget).parent().parent().children(".dtr-control").next().text();
-            // var thismodal = $('#clientStatusModal');
-            // thismodal.find('.modal-body').html("<p>storename: " + storename + "</p><p>cn: " + cn + "</p>");
-            // $(this).on('click', '.btn-primary', { 'filename': cn }, function(e) {
-            //     var newstorename = thismodal.find('input').val();
-            //     console.log("newstorename:" + newstorename);
-            //     if (newstorename) {
-            //         $.post("service/clientstatus/update", { 'cn': cn, 'newstorename': newstorename }, function(result) {
-            //             console.log("服务器返回结果：" + result.result);
-            //             $('#tbclientstatus').DataTable().ajax.reload(); // reload table data
-            //             $('#clientStatusModal').modal('hide'); // hide modal
-            //         });
-            //     }
-            // });
         })
 
     $('#tunclientStatusModal').on('shown.bs.modal',
