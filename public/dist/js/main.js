@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    // if set these to local variable, will cause modal submit too many times
     var cn;
     var storename;
 
