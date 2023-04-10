@@ -289,7 +289,22 @@ $(document).ready(function() {
         }
         // console.log(toUrlpart);
         var url = "/" + toUrlpart + "/";
-        console.log("转化后：" + url);
+        console.log("ssh url: " + url);
+        var openNewLink = window.open(url);
+        openNewLink.focus();
+    });
+
+
+    // SSH connection
+    // https://service.carel-remote.com/wssh/?hostname=xx&username=yy&password=str_base64_encoded&title=boss-a98bd3ba-cfc3-11ed-94a8-c400ad64f34a
+    // https://service.carel-remote.com/wssh/?hostname=192.168.120.62&username=root&title=boss-a98bd3ba-cfc3-11ed-94a8-c400ad64f34a
+    $('#tuntbclientstatus tbody').on('click', '.sshConnect', function(e) {
+        var clientIp = $(this).parent().parent().children().eq(2).text();
+        var cn = $(this).parent().parent().children().eq(1).text();
+        var url = "/wssh/" + "?hostname=" + clientIp;
+        url = url + '&' + "username=root";
+        url = url + "&title=" + cn;
+        console.log("ssh url: " + url);
         var openNewLink = window.open(url);
         openNewLink.focus();
     });
