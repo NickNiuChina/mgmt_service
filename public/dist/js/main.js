@@ -265,7 +265,7 @@ $(document).ready(function() {
         var url = "/wssh/" + "?hostname=" + clientIp;
         url = url + '&' + "username=root";
         url = url + "&title=" + storename;
-        console.log("ssh url" + url);
+        console.log("ssh url: " + url);
         var openNewLink = window.open(url);
         openNewLink.focus();
     });
