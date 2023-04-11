@@ -261,10 +261,11 @@ $(document).ready(function() {
     $('#tbclientstatus tbody').on('click', '.sshConnect', function(e) {
         var clientIp = $(this).parent().parent().children().eq(2).text();
         var cn = $(this).parent().parent().children().eq(1).text();
+        var storename = $(this).parent().parent().children().eq(0).text();
         var url = "/wssh/" + "?hostname=" + clientIp;
         url = url + '&' + "username=root";
-        url = url + "&title=" + cn;
-        console.log("转化后：" + url);
+        url = url + "&title=" + storename;
+        console.log("ssh url" + url);
         var openNewLink = window.open(url);
         openNewLink.focus();
     });
@@ -289,7 +290,7 @@ $(document).ready(function() {
         }
         // console.log(toUrlpart);
         var url = "/" + toUrlpart + "/";
-        console.log("ssh url: " + url);
+        console.log("转化后：" + url);
         var openNewLink = window.open(url);
         openNewLink.focus();
     });
@@ -301,9 +302,10 @@ $(document).ready(function() {
     $('#tuntbclientstatus tbody').on('click', '.sshConnect', function(e) {
         var clientIp = $(this).parent().parent().children().eq(2).text();
         var cn = $(this).parent().parent().children().eq(1).text();
+        var storename = $(this).parent().parent().children().eq(0).text();
         var url = "/wssh/" + "?hostname=" + clientIp;
         url = url + '&' + "username=root";
-        url = url + "&title=" + cn;
+        url = url + "&title=" + storename;
         console.log("ssh url: " + url);
         var openNewLink = window.open(url);
         openNewLink.focus();
