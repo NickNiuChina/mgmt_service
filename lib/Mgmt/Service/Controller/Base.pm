@@ -46,7 +46,7 @@ sub loginValidate ($c) {
             # Creating session cookies
             $c->session(is_auth => 1);             # set the logged_in flag
             $c->session(username => $user);        # keep a copy of the username
-            $c->session(expiration => 1800);        # expire this session in 10 minutes if no activity
+            $c->session(expiration => 7200);        # expire this session in 2h minutes if no activity
             # Re-direct to home page
             # &welcome($c);
             $c->redirect_to('/service/tunclientstatus')
