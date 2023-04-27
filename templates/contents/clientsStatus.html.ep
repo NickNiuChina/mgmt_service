@@ -60,7 +60,7 @@
                     <th>ToggleDate</th>
                     <th>Expire</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>远程连接</th>
                   </tr>
                   </thead>
      
@@ -71,7 +71,7 @@
                     <th>ToggleDate</th>
                     <th>Expire</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>远程连接</th>
                   </tfoot>
                 </table>
               </div>
