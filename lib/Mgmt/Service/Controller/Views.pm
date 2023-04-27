@@ -688,7 +688,7 @@ sub tunReqClientsDelete ($c) {
   # $c->redirect_to('/service/certed');
 }
 
-sub reqClientsDownload ($c) {
+sub tunreqClientsDownload ($c) {
     my $filename;
     my $result;  # for future
     # my $dir = $ENV{MGMTSERVICEDIR};
