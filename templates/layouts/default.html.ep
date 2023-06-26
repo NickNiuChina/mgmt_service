@@ -135,14 +135,14 @@
                   <li class="nav-item">
                     <a href="service/tunissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>Issue certification</p>
+                      <p>生成Boss客户端</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
                     <a href="service/tungenericissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>Issue generic cert</p>
+                      <p>生成通用客户端</p>
                     </a>
                   </li>
 
@@ -199,7 +199,7 @@
                 <li class="nav-item">
                 <a href="service/issue" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p><del>Issue certification</del></p>
+                  <p><del>生成Boss客户端</del></p>
                 </a>
               </li>
 
