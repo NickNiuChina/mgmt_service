@@ -442,7 +442,7 @@ sub tunClientsStatuslist ($c) {
       push @values, $offset;
     #*************************************
     # debug
-    $c->log->info("SQL: $sql_filter");
+    $c->log->info("SQL: $sql");
     $c->log->info("Arguments: @values_filter");
     my $sth1 = $dbh->prepare($sql_filter);
     $sth1->execute(@values_filter);
