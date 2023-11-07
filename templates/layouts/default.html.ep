@@ -256,7 +256,7 @@
     <%# /.sidebar %>
   </aside>
 
-<%= content %>
+  <%= content %>
 
   <%# Main Footer %>
   <footer class="main-footer">
@@ -267,6 +267,7 @@
     <%# Default to the left %>
     <strong>Copyright &copy;<%= $now->year %> <a href="https://www.carel.com" target="_blank">CAREL INDUSTRIES S.p.A. </a>.</strong> All rights reserved.
   </footer>
+  
 </div>
 <%# ./wrapper %>
 </body>
