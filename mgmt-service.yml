@@ -1,4 +1,7 @@
 ---
+
+VERSION: v2.0.0
+
 secrets:
   - 28424dd8069fe62f1f91a8d7d5e9ec858d8913e3
 

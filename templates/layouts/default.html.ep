@@ -262,7 +262,7 @@
   <footer class="main-footer">
     <%# To the right %>
     <div class="float-right d-none d-sm-inline">
-      Service site only
+      <%= $config->{VERSION} %>
     </div>
     <%# Default to the left %>
     <strong>Copyright &copy;<%= $now->year %> <a href="https://www.carel.com" target="_blank">CAREL INDUSTRIES S.p.A. </a>.</strong> All rights reserved.
