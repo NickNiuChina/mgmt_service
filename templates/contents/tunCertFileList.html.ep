@@ -70,13 +70,13 @@
             <%# /.card %>
           </div>
           <%# /.col %>
-        </div>
+        <%# </div> %>
         <%# /.row %>
-      </div>
+      <%# </div> %>
       <%# /.container-fluid %>
 
 
     <%# /.content %>
 
-  </div>
+  <%# </div> %>
   <%# /.content-wrapper %>
