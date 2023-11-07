@@ -21,72 +21,63 @@
     <%# /.content-header %>
 
     <%# Main content %>
-<%# Modal %>
-<div class="modal fade" id="tunclientStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="tunclientstatusModalLabel">Update store name</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      </div>
-      <form method="post" action="javascript: void(0)" enctype ="multipart/form-data">
-          <input type="text" class="form-control" name="newstorename" placeholder="new store name">
-      </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Update</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <%# Modal %>
+    <div class="modal fade" id="tunclientStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tunclientstatusModalLabel">Update store name</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <form method="post" action="javascript: void(0)" enctype ="multipart/form-data">
+              <input type="text" class="form-control" name="newstorename" placeholder="new store name">
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reqDelModal">  %>
-<%# END Modal %>
+    <%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reqDelModal">  %>
+    <%# END Modal %>
 
- <div class="card">
-              <div class="card-header">
-              </div>
-              <%# /.card-header %>
-              <div class="card-body">
-                <table id="tuntbclientstatus" class="table table-bordered table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th>Store</th>
-                    <th>CN</th>
-                    <th>vIP</th>
-                    <th>ToggleDate</th>
-                    <th>Expire</th>
-                    <th>Status</th>
-                    <th>远程连接</th>
-                  </tr>
-                  </thead>
-     
-                  <tfoot>
-                    <th>Store</th>
-                    <th>CN</th>
-                    <th>vIP</th>
-                    <th>ToggleDate</th>
-                    <th>Expire</th>
-                    <th>Status</th>
-                    <th>远程连接</th>
-                  </tfoot>
-                </table>
-              </div>
-              <%# /.card-body %>
-            </div>
-            <%# /.card %>
-          </div>
-          <%# /.col %>
-        </div>
-        <%# /.row %>
+    <div class="card">
+      <div class="card-header">
       </div>
-      <%# /.container-fluid %>
+      <%# /.card-header %>
+      <div class="card-body">
+        <table id="tuntbclientstatus" class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Store</th>
+            <th>CN</th>
+            <th>vIP</th>
+            <th>ToggleDate</th>
+            <th>Expire</th>
+            <th>Status</th>
+            <th>远程连接</th>
+          </tr>
+          </thead>
 
-
-    <%# /.content %>
+          <tfoot>
+            <th>Store</th>
+            <th>CN</th>
+            <th>vIP</th>
+            <th>ToggleDate</th>
+            <th>Expire</th>
+            <th>Status</th>
+            <th>远程连接</th>
+          </tfoot>
+        </table>
+      </div>
+      <%# /.card-body %>
+    </div>
+    <%# /.card %>
 
   </div>
   <%# /.content-wrapper %>
