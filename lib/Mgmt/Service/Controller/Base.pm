@@ -4,7 +4,6 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 # This action will render a template
 sub index ($c) {
   # Render template "somedir/fn.html.ep" with message
-  $c = shift;
   return $c->redirect_to('service');
 }
 
