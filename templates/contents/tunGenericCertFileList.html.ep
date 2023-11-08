@@ -1,5 +1,9 @@
   % layout 'default';
 
+% content_for header => begin
+  Tun generic cert file list
+% end
+
   <%# Content Wrapper. Contains page content %>
   <div class="content-wrapper">
     <%# Content Header (Page header) %>

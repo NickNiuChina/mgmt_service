@@ -10,7 +10,7 @@
   <%# <base href="http://127.0.0.1:3000"> %>
   <base href="/">
   </head>
-  <title>Carel Site | Service </title>
+  <title><%= content 'title' %></title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
   <%# Google Font: Source Sans Pro %>
