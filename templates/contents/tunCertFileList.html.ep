@@ -1,6 +1,6 @@
 % layout 'default';
 
-% content_for header => begin
+% content_for title => begin
   Tun cert clients list
 % end
 

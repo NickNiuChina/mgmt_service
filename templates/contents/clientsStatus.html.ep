@@ -1,5 +1,9 @@
   % layout 'default';
 
+% content_for title => begin
+  Ovpn client status
+% end
+
   <%# Content Wrapper. Contains page content %>
   <div class="content-wrapper">
     <%# Content Header (Page header) %>

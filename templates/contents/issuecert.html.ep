@@ -1,5 +1,9 @@
   % layout 'default';
 
+% content_for title => begin
+  Issue cert
+% end
+
 <div class="content-wrapper">
 <h1 class="m-0">Update Req file </h1>
 <h2 class="text-danger">这个模式即将被弃用，请勿申请认证文件</h2>
