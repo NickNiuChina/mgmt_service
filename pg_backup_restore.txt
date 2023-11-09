@@ -1,0 +1,3 @@
+pg_dump -U mgmt -h localhost -d  mgmtdb > D:\\mgmt_db.sql
+
+psql -U mgmt -d mgmtdb < mgmt_db.sql

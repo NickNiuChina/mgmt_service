@@ -15,12 +15,29 @@ $(document).ready(function() {
     }
 
     $("#tbclientstatus").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
         // "responsive": true, "lengthChange": true, "autoWidth": true,
-        "buttons": ["excel", "colvis"],
+        // "buttons": ["excel", "colvis"],
+        "buttons": [{
+                extend: 'excel',
+                text: 'Excel',
+                exportOptions: {
+                    modifier: {
+                        page: 'all',
+                        selected: null,
+                        search: 'none',
+                    },
+                    columns: [0, 1, 2, 3]
+                },
+            },
+            // { extend: 'excel', text: '<i class="fas fa-file-excel" aria-hidden="true"> Excel </i>' },
+            "colvis",
+            "pageLength"
+        ],
         "lengthMenu": [100, 50, 20, "1000"],
         "processing": true,
         "serverSide": true,
@@ -79,9 +96,8 @@ $(document).ready(function() {
                     if (data[5]) {
                         var reg = RegExp(/boss/);
                         if (data[1].length == 41 || reg.test(data[1])) {
-                            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Mgmt</a>"
-                            html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-                            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+                            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs'><i class='far fa-arrow-alt-circle-right'></i> Mgmt</a>"
+                            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-terminal'></i> SSH</a>"
                             return html;
                         } else {
                             var html = 'NotApplied';
@@ -97,12 +113,29 @@ $(document).ready(function() {
     });
 
     $("#tuntbclientstatus").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
         // "responsive": true, "lengthChange": true, "autoWidth": true,
-        "buttons": ["excel", "colvis"],
+        // "buttons": ["excel", "colvis"],
+        "buttons": [{
+                extend: 'excel',
+                text: 'Excel',
+                exportOptions: {
+                    modifier: {
+                        page: 'all',
+                        selected: null,
+                        search: 'none',
+                    },
+                    columns: [0, 1, 2, 3]
+                },
+            },
+            // { extend: 'excel', text: '<i class="fas fa-file-excel" aria-hidden="true"> Excel </i>' },
+            "colvis",
+            "pageLength"
+        ],
         "lengthMenu": [100, 50, 20, "1000"],
         "processing": true,
         "serverSide": true,
@@ -161,9 +194,8 @@ $(document).ready(function() {
                     if (data[5]) {
                         var reg = RegExp(/boss/);
                         if (data[1].length == 41 || reg.test(data[1])) {
-                            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Mgmt</a>"
-                            html += "<a href='javascript:void(0);' class='connect8443 btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> Oper</a>"
-                            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> SSH</a>"
+                            var html = "<a href='javascript:void(0);' class='conn4ect443 btn btn-default btn-xs'><i class='far fa-arrow-alt-circle-right'></i> Mgmt</a>"
+                            html += "<a href='javascript:void(0);' class='sshConnect btn btn-default btn-xs'><i class='fa fa-terminal'></i> SSH</a>"
                             return html;
                         } else {
                             var html = 'NotApplied';
@@ -324,7 +356,8 @@ $(document).ready(function() {
     })
 
     $("#tbreqfiles").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -361,7 +394,8 @@ $(document).ready(function() {
     });
 
     $("#tuntbreqfiles").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -398,7 +432,8 @@ $(document).ready(function() {
     });
 
     $("#tbcertfiles").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -439,7 +474,8 @@ $(document).ready(function() {
     });
 
     $("#tuntbcertfiles").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -480,7 +516,8 @@ $(document).ready(function() {
     });
 
     $("#tuntbgenericcertfiles").DataTable({
-        "dom": 'Blfrtip',
+        // "dom": 'Blfrtip',
+        "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
