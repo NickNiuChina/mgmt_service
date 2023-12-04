@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <head>
   <%# <base href="http://127.0.0.1:3000"> %>
-  <base href="/">
+  <base href="http://127.0.0.1:3000">
   </head>
   <title><%= content 'title' %></title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
