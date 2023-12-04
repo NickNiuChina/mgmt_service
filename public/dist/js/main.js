@@ -12,7 +12,25 @@ $(document).ready(function() {
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
         return [year, month, day].join('-');
-    }
+    };
+
+    function formatTime(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear(),
+            hour = '' + d.getHours(),
+            min = '' + d.getMinutes(),
+            sec = '' + d.getSeconds();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        if (hour.length < 2) {
+            hour = '0' + hour;
+        }
+        if (min.length < 2) min = '0' + min;
+        if (sec.length < 2) sec = '0' + sec;
+        return [year, month, day].join('-') + "_" + [hour, min, sec].join(':');
+    };
 
     $("#tbclientstatus").DataTable({
         // "dom": 'Blfrtip',
@@ -65,8 +83,8 @@ $(document).ready(function() {
                 "data": null,
                 "render": function(data, type, row) {
                     var rdate = new Date(data[3])
-                        // console.log(formatDate(rdate));
-                    return formatDate(rdate);
+                        // console.log(formatTime(rdate));
+                    return formatTime(rdate);
                 }
             },
             {
@@ -163,8 +181,8 @@ $(document).ready(function() {
                 "data": null,
                 "render": function(data, type, row) {
                     var rdate = new Date(data[3])
-                        // console.log(formatDate(rdate));
-                    return formatDate(rdate);
+                        // console.log(formatTime(rdate));
+                    return formatTime(rdate);
                 }
             },
             {

@@ -25,23 +25,22 @@ sub loginValidate ($c) {
     }
     # my $tempPass = 'nimda' . "$mon$mday";
     my $tempPass = 'nimda' . "2022";
-    my %validUsers = ( "admin" => $tempPass );
+    # my %validUsers = ( "admin" => $tempPass );
+    my $validUsers = $c->config->{users};
+
+
     # Get the user name and password from the page
     my $user = $c->param('username');
     my $password = $c->param('password');
     # debug info
-    $c->log->info("password: $password");
-    $c->log->info("tempPass: $tempPass");
-    if ($password eq $tempPass) {
-      $c->log->info("Password Match");
-    }
-    else {
-      $c->log->info("Password Not Match");
-    }
+    $c->log->info("Username input: $user");
+    $c->log->info("Pssword input: $password");
+
     # First check if the user exists
-    if($validUsers{$user}){
+    if(exists $validUsers->{$user}){
         # Validating the password of the registered user
-        if($validUsers{$user} eq $password){
+        if( $validUsers->{$user} eq $password ){
+            $c->log->info("Password Match");    
             # Creating session cookies
             $c->session(is_auth => 1);             # set the logged_in flag
             $c->session(username => $user);        # keep a copy of the username
@@ -50,6 +49,7 @@ sub loginValidate ($c) {
             # &welcome($c);
             $c->redirect_to('/service/tunclientstatus')
         }else{
+            $c->log->info("Password Not Match");
             # If password is incorrect, re-direct to login page and then display appropriate message
             $c->flash( error => 'Invalid User/Password, please try again' );
             return $c->redirect_to("/service");
