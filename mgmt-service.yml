@@ -1,6 +1,6 @@
 ---
 
-VERSION: v2.0.0
+VERSION: v3.0.0
 
 secrets:
   - 28424dd8069fe62f1f91a8d7d5e9ec858d8913e3
@@ -20,3 +20,7 @@ hypnotoad:
   accepts: 50
   clients: 100
   pid_file: '/run/mgmt-hypnotoad.pid'
+
+log:
+    relative: yes
+    filename: mgmt.log

@@ -1,5 +1,6 @@
 package Mgmt::Service;
 use Mojo::Base 'Mojolicious', -signatures;
+use Mojo::Home;
 use Data::Printer;
 
 # This method will run once at server start
@@ -7,6 +8,21 @@ sub startup ($c) {
 
     # Load configuration from config file
     my $config = $c->plugin('NotYAMLConfig');
+
+    my $home = Mojo::Home->new;
+    $home->detect;
+    chomp(my $filename = $config->{log}->{filename});
+
+    # mojo log
+    my $logfile;
+    if ($config->{log}->{relative} eq 'yes') {
+        $logfile = $home->child($filename);
+    } else {
+        $logfile = $config->{log}->{filename};
+    }
+    $config->{log}->{log_full_filename} = $logfile;
+    $c->log( Mojo::Log->new( path => $logfile, level => 'trace' ) );
+    
 
     # Cron task to update the expire date
     $c->plugin(
@@ -31,9 +47,7 @@ sub startup ($c) {
             }
         }
     );
-    
-    # mojo log
-    $c->log( Mojo::Log->new( path => '/var/log/mgmt.log', level => 'trace' ) );
+
     
     # Configure the application
     $c->secrets($config->{secrets});
@@ -49,8 +63,8 @@ sub startup ($c) {
     $r->get('/service')->to('Base#login');
     my $auth = $r->under('/service')->to('Base#authCheck');
     $r->post('/service/login')->to('Base#loginValidate');
-    $r->post('/service/logout')->to('Base#logout');
-
+    $r->any(['GET', 'POST'] => '/service/logout')->to('Base#logout');
+    
 
     $auth->get('/tips')->to('Base#showHelp');
     

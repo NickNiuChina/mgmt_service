@@ -88,7 +88,7 @@
             <%# <span class="float-right text-muted text-sm">3 mins</span> %>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-item">Logout</a>
+          <a href="service/logout" class="dropdown-item dropdown-item">Logout</a>
         </div>
       </li>
       <li class="nav-item">
