@@ -28,4 +28,4 @@ log:
 users:
     admin: nimda2022
     super: super2025
-    user: user2025
+    # user: user2025
