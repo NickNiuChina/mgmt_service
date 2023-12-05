@@ -66,7 +66,16 @@ sub loginValidate ($c) {
       # checks if session flag (is_auth) is already set
       # return 1 if $c->session('is_auth');
       if ($c->session('is_auth')){
-        $c->stash(username => $username);
+        # $c->stash(username => $username);  # this variable accessable in template
+        if (exists $c->session->{lang}) {
+            # $c->languages('en');
+            $c->languages($c->session->{lang});
+          }
+        if (grep (/zh/, $c->languages)) {
+            $c->config->{current_language} = '中文';
+        } else {
+            $c->config->{current_language} = 'EN';
+        }
         return 1;
       }
       # If session flag not set re-direct to login page again.

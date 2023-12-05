@@ -58,24 +58,24 @@
         <table id="tuntbclientstatus" class="table table-bordered table-striped table-hover">
           <thead>
           <tr>
-            <th>Store</th>
+            <th><%= l 'Store' %></th>
             <th>CN</th>
             <th>vIP</th>
-            <th>ToggleDate</th>
-            <th>Expire</th>
-            <th>Status</th>
-            <th>远程连接</th>
+            <th><%= l 'ToggleTime' %></th>
+            <th><%= l 'Expire' %></th>
+            <th><%= l 'Status' %></th>
+            <th><%= l 'Connections' %></th>
           </tr>
           </thead>
 
           <tfoot>
-            <th>Store</th>
+            <th><%= l 'Store' %></th>
             <th>CN</th>
             <th>vIP</th>
-            <th>ToggleDate</th>
-            <th>Expire</th>
-            <th>Status</th>
-            <th>远程连接</th>
+            <th><%= l 'ToggleTime' %></th>
+            <th><%= l 'Expire' %></th>
+            <th><%= l 'Status' %></th>
+            <th><%= l 'Connections' %></th>
           </tfoot>
         </table>
       </div>

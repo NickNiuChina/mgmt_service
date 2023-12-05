@@ -69,12 +69,28 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="service/tips" class="nav-link">Tips</a>
+        <a href="service/tips" class="nav-link"><%= l 'Tips' %></a>
       </li>
      </ul>
 
     <%# Right navbar links %>
     <ul class="navbar-nav ml-auto">
+    
+      <%# Language Dropdown Menu %>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fa fa-language"><% if (config->{current_language} eq 'EN' ) { %>中文<% } else { %>EN <% } %> </i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="service/language?language=zh" class="dropdown-item <% if (config->{current_language} ne 'EN' ) { %>active<% } %>">
+            <i class="flag-icon flag-icon-us mr-2"></i> 中文
+          </a>
+          <a href="service/language?language=en" class="dropdown-item <% if (config->{current_language} eq 'EN' ) { %>active<% } %>">
+            <i class="flag-icon flag-icon-de mr-2"></i> English
+          </a>
+        </div>
+      </li>
+
       <%# Notifications Dropdown Menu %>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)">
@@ -84,11 +100,11 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
           <a href="javascript:void(0)" class="dropdown-item">
-            <i class="fas fa-user-circle mr-2"></i> User: <%= $username %> 
+            <i class="fas fa-user-circle mr-2"></i> <%= l 'User' %>: <%= session->{username} %> 
             <%# <span class="float-right text-muted text-sm">3 mins</span> %>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="service/logout" class="dropdown-item dropdown-item">Logout</a>
+          <a href="service/logout" class="dropdown-item dropdown-item"><%= l 'Logout' %></a>
         </div>
       </li>
       <li class="nav-item">
@@ -96,6 +112,7 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+    
     </ul>
   </nav>
   <%# /.navbar %>
@@ -129,42 +146,42 @@
                   <li class="nav-item">
                     <a href="service/tunclientstatus" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>OVPN CLIENT status</p>
+                      <p><%= l 'OVPN CLIENT status' %></p>
                     </a>
                   </li>
     
                   <li class="nav-item">
                     <a href="service/tunissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>生成Boss客户端</p>
+                      <p><%= l 'Generate Boss client' %></p>
                     </a>
                   </li>
 
                   <li class="nav-item">
                     <a href="service/tungenericissue" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>生成通用客户端</p>
+                      <p><%= l 'Generate generic client' %></p>
                     </a>
                   </li>
 
                   <li class="nav-item">
                     <a href="service/tunreqs" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>OVPN REQ files</p>
+                      <p><%= l 'OVPN REQ files' %></p>
                     </a>
                   </li>
     
                   <li class="nav-item">
                     <a href="service/tuncerted" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p>OVPN CLIENT files</p>
+                      <p><%= l 'OVPN CLIENT files' %></p>
                     </a>
                   </li>
     
                   <li class="nav-item">
                     <a href="service/tungenericcerted" class="nav-link">
                       <i class="far fa-file nav-icon"></i>
-                      <p> OVPN generic CLIENT</p>
+                      <p> <%= l 'OVPN generic CLIENT' %></p>
                     </a>
                   </li>
 
@@ -193,28 +210,28 @@
               <li class="nav-item">
                 <a href="service/clientstatus" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p><del>OVPN CLIENT status</del></p>
+                  <p><del><%= l 'OVPN CLIENT status' %></del></p>
                 </a>
               </li>
 
                 <li class="nav-item">
                 <a href="service/issue" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p><del>生成Boss客户端</del></p>
+                  <p><del><%= l 'Generate Boss client' %></del></p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="service/reqs" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p><del>OVPN REQ files</del></p>
+                  <p><del><%= l 'OVPN REQ files' %></del></p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="service/certed" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
-                  <p><del>OVPN CLIENT files</del></p>
+                  <p><del><%= l 'OVPN CLIENT files' %></del></p>
                 </a>
               </li>
 

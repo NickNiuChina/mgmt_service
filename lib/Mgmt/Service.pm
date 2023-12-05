@@ -48,6 +48,12 @@ sub startup ($c) {
         }
     );
 
+    $c->plugin (I18N => {
+        namespace => 'Mgmt::Service::I18N',
+        support_url_langs => [qw(en zh)],
+        # no_header_detect => 1
+        }
+    );
     
     # Configure the application
     $c->secrets($config->{secrets});
@@ -67,6 +73,7 @@ sub startup ($c) {
     
 
     $auth->get('/tips')->to('Base#showHelp');
+    $auth->get('/language')->to(controller => 'Views', action => 'setLanguage');    
     
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');
