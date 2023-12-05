@@ -117,17 +117,16 @@ sub startup ($c) {
     $auth->post('/tungenericcerted/delete')->to('Views#tunGenericCertedClientsDelete');
     $auth->post('/tungenericcerted/download')->to('Views#tunGenericCertedClientsDownload');
     $auth->get('/tungenericcerted/dl/#filename')->to('Views#tunGenericCertedClientsDownload');
-
-
-    ##### Add tun mode openvpn server ##############################
-
-
     
+    # Secret info pages
+    $auth->get('/system/session')->to('Views#sysSession');
+    $auth->get('/system/appConfig')->to('Views#sysAppConfig');
+    $auth->get('/system/appAttr')->to('Views#sysAppAttr');
+
     ###### Other Urls test ########
     # $r->get('/bar')->to('Foo#bar');
     $r->get('/test')->to(controller => 'Test', action => 'test');
     $r->get('/welcome')->to('Example#welcome');
-
 
 }
 

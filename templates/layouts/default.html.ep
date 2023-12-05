@@ -175,8 +175,6 @@
                     </a>
                   </li>
 
-
-    
                 </ul>
               </li>
     
@@ -250,6 +248,44 @@
               </li>
             </ul>
           </li>    %>
+
+
+          % if (session->{username} eq 'super') {
+
+              <li class="nav-item menu-open">
+                <a href="javascript:void(0);" class="nav-link">
+                  <i class="nav-icon fa fa-user-secret"></i>
+                  <p>
+                    Configuration
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  
+                  <li class="nav-item">
+                    <a href="service/system/session" target="_blank" class="nav-link">
+                      <i class="nav-icon far fa-file"></i>
+                      <p>Current session</p>
+                    </a>
+                  </li>
+                
+                  <li class="nav-item">
+                    <a href="service/system/appConfig" target="_blank" class="nav-link">
+                      <i class="nav-icon far fa-file"></i>
+                      <p>Mojolicious App config</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="service/system/appAttr" target="_blank" class="nav-link">
+                      <i class="nav-icon far fa-file"></i>
+                      <p>Mojolicious App Attr</p>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+              % }
 
         </ul>
       </nav>

@@ -4,6 +4,33 @@ use Data::Printer;
 use Mgmt::Service::DB;
 use DBI;
 
+# change language
+sub setLanguage ($self) {
+    # p $self->config->{users};
+    # $self->languages('en');
+    # p $self->languages;
+    # p $self->param('language');
+
+    # new language
+    my $nl = $self->param('language');
+
+    # p $self->req->headers->referrer;
+    my $language = $self->config->{supported_languages};
+
+    my %lh = map {$_ => 1} @$language;
+    
+    if (exists $lh{$nl}) {
+        $self->languages($nl);
+        $self->session(lang => $nl);  
+        $self->config->{current_language} = $nl;
+        $self->redirect_to($self->req->headers->referrer);
+    }
+    else {
+        $self->flash( error => 'New language is not supported!' );
+        $self->redirect_to($self->req->headers->referrer);
+    }
+}
+
 # This action will render a template
 sub clientsStatus ($c) {
    $c->render(template => 'contents/clientsStatus',msg => 'To be filled');
@@ -892,5 +919,24 @@ sub tunGenericCertedClientsDownload ($c) {
 }
 
 # *** Add tun mode openvpn server  *****************************************************************************************************************
+
+# Secret page views
+
+sub sysSession ($self) {
+    # p $self->session;
+    my $session = $self->session;
+    $self->render(json => $session);
+}
+
+sub sysAppConfig ($self) {
+    # p $self->config;
+    my $config = $self->config;
+    $self->render(json => $config);
+}
+
+sub sysAppAttr ($self) {
+    # p $self;
+    $self->render(json => np $self);
+}
 
 1;
