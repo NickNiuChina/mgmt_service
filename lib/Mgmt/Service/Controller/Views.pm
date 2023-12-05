@@ -23,11 +23,12 @@ sub setLanguage ($self) {
         $self->languages($nl);
         $self->session(lang => $nl);  
         $self->config->{current_language} = $nl;
-        $self->redirect_to($self->req->headers->referrer);
+        $self->redirect_to('/service/tunclientstatus');
     }
     else {
         $self->flash( error => 'New language is not supported!' );
-        $self->redirect_to($self->req->headers->referrer);
+        # $self->redirect_to($self->req->headers->referrer);
+        $self->redirect_to('/service/tunclientstatus');
     }
 }
 
